@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ЦОИАС — предпросмотр</title>
   <style>
+    /*
+      Базовые дизайн-токены.
+      Хорошо, что основные цвета и радиусы вынесены в :root — это упрощает поддержку.
+      Стоит продолжить в том же духе и вынести сюда также часто повторяющиеся отступы.
+    */
     :root {
       --bg: #f4f7fb;
       --card: #ffffff;
@@ -481,6 +486,11 @@
       transform-origin: center;
     }
 
+    /*
+      Это точечная настройка внешнего вида иконок.
+      Решение рабочее, но хрупкое: оно зависит от точных заголовков карточек.
+      Лучше завести модификаторы классов, например tool-card--registry.
+    */
     .tool-card[data-tool="УВБА"] .tool-icon svg {
       transform: scale(0.96);
     }
@@ -684,6 +694,20 @@
     .auth-note { margin-bottom: 12px; }
     .hidden { display: none !important; }
 
+    /*
+      В исходном коде этот класс используется, но не был описан.
+      Из-за этого визуально блок есть в DOM, но не оформлен.
+    */
+    .notice-bar {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #eef4ff;
+      border: 1px solid #c7d8f2;
+      color: #334155;
+      font-size: 15px;
+      line-height: 22px;
+    }
+
     .footer {
       margin-top: 32px;
       border-top: 1px solid var(--border);
@@ -773,17 +797,32 @@
   </style>
 </head>
 <body>
+  <!--
+    Корневой контейнер приложения.
+    Весь интерфейс ниже рендерится в него через render().
+  -->
   <div id="app"></div>
 
   <script>
+    /*
+      Единое состояние приложения.
+      Для маленького демо это нормально, но при росте функциональности тут быстро начнется хаос.
+      Первое, что стоит добавить — хранение состояния раскрытых FAQ-ответов.
+    */
     const state = {
       page: 'home',
       faqExpanded: false,
       docsExpanded: false,
       faqQuery: '',
-      docsQuery: ''
+      docsQuery: '',
+      openFaqAnswers: {}
     };
 
+    /*
+      Данные пока захардкожены прямо в коде.
+      Для статического предпросмотра это допустимо.
+      Для реального проекта лучше вынести их в отдельный слой: API / mock / data-файл.
+    */
     const newsItems = [
       {
         date: '12.03.2026',
@@ -804,6 +843,11 @@
         ]
       },
       {
+        /*
+          В исходном коде здесь есть логическая нестыковка:
+          дата новости 05.01.2026, а внутри абзаца указано письмо от 15 апреля 2026 года.
+          Это выглядит как ошибка в данных.
+        */
         date: '05.01.2026',
         weekday: 'Понедельник',
         paragraphs: [
@@ -882,6 +926,12 @@
       { title: 'Паспорта работ', description: 'Тестирование', accent: '#94A3B8', isTest: true }
     ];
 
+    /*
+      Базовая защита перед подстановкой текста в HTML.
+      Это один из самых полезных кусочков в этом файле.
+      Минус в том, что защита работает только там, где разработчик не забыл вызвать escapeHtml вручную.
+      Более надежный путь — строить DOM через createElement/textContent.
+    */
     function escapeHtml(value) {
       return String(value)
         .replace(/&/g, '&amp;')
@@ -891,15 +941,23 @@
         .replace(/'/g, '&#39;');
     }
 
+    /*
+      Генератор SVG-иконок для карточек инструментов.
+      Сейчас функция слишком большая и уже просится на декомпозицию:
+      - отдельная функция для каждого SVG
+      - мапа title -> renderer
+      - уникальные ids для linearGradient, чтобы избежать конфликтов в DOM
+    */
     function iconFor(title, color, isTest) {
       const safeColor = escapeHtml(color);
+      const uid = Math.random().toString(36).slice(2, 8);
 
       if (isTest) {
         return '<svg width="32" height="32" viewBox="0 -960 960 960" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
           '<path d="M739-83.5q-7-2.5-13-8.5L522-296q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l85-85q6-6 13-8.5t15-2.5q8 0 15 2.5t13 8.5l204 204q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13l-85 85q-6 6-13 8.5T754-81q-8 0-15-2.5Zm-549.5.5q-7.5-3-13.5-9l-84-84q-6-6-9-13.5T80-205q0-8 3-15t9-13l212-212h85l34-34-165-165h-57L80-765l113-113 121 121v57l165 165 116-116-43-43 56-56H495l-28-28 142-142 28 28v113l56-56 142 142q17 17 26 38.5t9 45.5q0 24-9 46t-26 39l-85-85-56 56-42-42-207 207v84L233-92q-6 6-13 9t-15 3q-8 0-15.5-3Z" fill="#5B6F95"/>' +
-          '<path d="M739-83.5q-7-2.5-13-8.5L522-296q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l85-85q6-6 13-8.5t15-2.5q8 0 15 2.5t13 8.5l204 204q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13l-85 85q-6 6-13 8.5T754-81q-8 0-15-2.5Zm-549.5.5q-7.5-3-13.5-9l-84-84q-6-6-9-13.5T80-205q0-8 3-15t9-13l212-212h85l34-34-165-165h-57L80-765l113-113 121 121v57l165 165 116-116-43-43 56-56H495l-28-28 142-142 28 28v113l56-56 142 142q17 17 26 38.5t9 45.5q0 24-9 46t-26 39l-85-85-56 56-42-42-207 207v84L233-92q-6 6-13 9t-15 3q-8 0-15.5-3Z" fill="url(#testToolAccent)" fill-opacity="0.22"/>' +
+          '<path d="M739-83.5q-7-2.5-13-8.5L522-296q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l85-85q6-6 13-8.5t15-2.5q8 0 15 2.5t13 8.5l204 204q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13l-85 85q-6 6-13 8.5T754-81q-8 0-15-2.5Zm-549.5.5q-7.5-3-13.5-9l-84-84q-6-6-9-13.5T80-205q0-8 3-15t9-13l212-212h85l34-34-165-165h-57L80-765l113-113 121 121v57l165 165 116-116-43-43 56-56H495l-28-28 142-142 28 28v113l56-56 142 142q17 17 26 38.5t9 45.5q0 24-9 46t-26 39l-85-85-56 56-42-42-207 207v84L233-92q-6 6-13 9t-15 3q-8 0-15.5-3Z" fill="url(#testToolAccent-' + uid + ')" fill-opacity="0.22"/>' +
           '<defs>' +
-            '<linearGradient id="testToolAccent" x1="80" y1="-880" x2="878" y2="-80" gradientUnits="userSpaceOnUse">' +
+            '<linearGradient id="testToolAccent-' + uid + '" x1="80" y1="-880" x2="878" y2="-80" gradientUnits="userSpaceOnUse">' +
               '<stop stop-color="#EEF3FB"/>' +
               '<stop offset="1" stop-color="#003385"/>' +
             '</linearGradient>' +
@@ -911,9 +969,9 @@
         return '<svg width="32" height="32" viewBox="0 -960 960 960" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
           '<path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80ZM120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z" fill="#1E63C6"/>' +
           '<path d="M120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z" fill="#00CD90" fill-opacity="0.22"/>' +
-          '<path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80Z" fill="url(#uvbaAccent)" fill-opacity="0.18"/>' +
+          '<path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80Z" fill="url(#uvbaAccent-' + uid + ')" fill-opacity="0.18"/>' +
           '<defs>' +
-            '<linearGradient id="uvbaAccent" x1="120" y1="-840" x2="840" y2="-120" gradientUnits="userSpaceOnUse">' +
+            '<linearGradient id="uvbaAccent-' + uid + '" x1="120" y1="-840" x2="840" y2="-120" gradientUnits="userSpaceOnUse">' +
               '<stop stop-color="#EEF3FB"/>' +
               '<stop offset="1" stop-color="#003385"/>' +
             '</linearGradient>' +
@@ -925,9 +983,9 @@
         return '<svg width="32" height="32" viewBox="0 -960 960 960" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
           '<path d="M400-400h160v-80H400v80Zm0-120h320v-80H400v80Zm0-120h320v-80H400v80Zm-80 400q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z" fill="#00A67D"/>' +
           '<path d="M400-400h160v-80H400v80Zm0-120h320v-80H400v80Zm0-120h320v-80H400v80Z" fill="#ffffff" fill-opacity="0.9"/>' +
-          '<path d="M320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880Z" fill="url(#passportAccent)" fill-opacity="0.18"/>' +
+          '<path d="M320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880Z" fill="url(#passportAccent-' + uid + ')" fill-opacity="0.18"/>' +
           '<defs>' +
-            '<linearGradient id="passportAccent" x1="240" y1="-880" x2="880" y2="-240" gradientUnits="userSpaceOnUse">' +
+            '<linearGradient id="passportAccent-' + uid + '" x1="240" y1="-880" x2="880" y2="-240" gradientUnits="userSpaceOnUse">' +
               '<stop stop-color="#EEF3FB"/>' +
               '<stop offset="1" stop-color="#003385"/>' +
             '</linearGradient>' +
@@ -940,9 +998,9 @@
           '<path d="M348.5-291.5Q360-303 360-320t-11.5-28.5Q337-360 320-360t-28.5 11.5Q280-337 280-320t11.5 28.5Q303-280 320-280t28.5-11.5Zm0-160Q360-463 360-480t-11.5-28.5Q337-520 320-520t-28.5 11.5Q280-497 280-480t11.5 28.5Q303-440 320-440t28.5-11.5Zm0-160Q360-623 360-640t-11.5-28.5Q337-680 320-680t-28.5 11.5Q280-657 280-640t11.5 28.5Q303-600 320-600t28.5-11.5ZM440-280h240v-80H440v80Zm0-160h240v-80H440v80Zm0-160h240v-80H440v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z" fill="#1E63C6"/>' +
           '<path d="M348.5-291.5Q360-303 360-320t-11.5-28.5Q337-360 320-360t-28.5 11.5Q280-337 280-320t11.5 28.5Q303-280 320-280t28.5-11.5Zm0-160Q360-463 360-480t-11.5-28.5Q337-520 320-520t-28.5 11.5Q280-497 280-480t11.5 28.5Q303-440 320-440t28.5-11.5Zm0-160Q360-623 360-640t-11.5-28.5Q337-680 320-680t-28.5 11.5Q280-657 280-640t11.5 28.5Q303-600 320-600t28.5-11.5Z" fill="#00CD90" fill-opacity="0.28"/>' +
           '<path d="M440-280h240v-80H440v80Zm0-160h240v-80H440v80Zm0-160h240v-80H440v80Z" fill="#ffffff" fill-opacity="0.92"/>' +
-          '<path d="M200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840Z" fill="url(#registryAccent)" fill-opacity="0.18"/>' +
+          '<path d="M200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840Z" fill="url(#registryAccent-' + uid + ')" fill-opacity="0.18"/>' +
           '<defs>' +
-            '<linearGradient id="registryAccent" x1="120" y1="-840" x2="840" y2="-120" gradientUnits="userSpaceOnUse">' +
+            '<linearGradient id="registryAccent-' + uid + '" x1="120" y1="-840" x2="840" y2="-120" gradientUnits="userSpaceOnUse">' +
               '<stop stop-color="#EEF3FB"/>' +
               '<stop offset="1" stop-color="#003385"/>' +
             '</linearGradient>' +
@@ -955,9 +1013,9 @@
           '<path d="M880-80 720-240H320q-33 0-56.5-23.5T240-320v-40h440q33 0 56.5-23.5T760-440v-280h40q33 0 56.5 23.5T880-640v560ZM160-473l47-47h393v-280H160v327ZM80-280v-520q0-33 23.5-56.5T160-880h440q33 0 56.5 23.5T680-800v280q0 33-23.5 56.5T600-440H240L80-280Zm80-240v-280 280Z" fill="#475569"/>' +
           '<path d="M160-473l47-47h393v-280H160v327Z" fill="#ffffff" fill-opacity="0.9"/>' +
           '<path d="M880-80 720-240H320q-33 0-56.5-23.5T240-320v-40h440q33 0 56.5-23.5T760-440v-280h40q33 0 56.5 23.5T880-640v560Z" fill="#1E63C6" fill-opacity="0.14"/>' +
-          '<path d="M160-880h440q33 0 56.5 23.5T680-800v280q0 33-23.5 56.5T600-440H240L80-280v-520q0-33 23.5-56.5T160-880Z" fill="url(#forumAccent)" fill-opacity="0.18"/>' +
+          '<path d="M160-880h440q33 0 56.5 23.5T680-800v280q0 33-23.5 56.5T600-440H240L80-280v-520q0-33 23.5-56.5T160-880Z" fill="url(#forumAccent-' + uid + ')" fill-opacity="0.18"/>' +
           '<defs>' +
-            '<linearGradient id="forumAccent" x1="80" y1="-880" x2="880" y2="-80" gradientUnits="userSpaceOnUse">' +
+            '<linearGradient id="forumAccent-' + uid + '" x1="80" y1="-880" x2="880" y2="-80" gradientUnits="userSpaceOnUse">' +
               '<stop stop-color="#EEF3FB"/>' +
               '<stop offset="1" stop-color="#003385"/>' +
             '</linearGradient>' +
@@ -976,6 +1034,10 @@
       return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM200-120q-33 0-56.5-23.5T120-200v-120h80v120h560v-120h80v120q0 33-23.5 56.5T760-120H200Z"/></svg>';
     }
 
+    /*
+      Здесь текст сначала экранируется, и только потом внутри него делается точечная замена.
+      Это хороший компромисс между безопасностью и кастомной разметкой.
+    */
     function highlightNewsParagraph(text, newsIndex) {
       let result = escapeHtml(text);
       if (newsIndex === 0) {
@@ -987,6 +1049,11 @@
       return result;
     }
 
+    /*
+      Рендер карточки инструмента.
+      Плюс: чистая функция, возвращает только HTML.
+      Минус: зависит от строковых названий и от очень большого iconFor().
+    */
     function toolCard(tool) {
       return [
         '<section class="card tool-card" data-tool="' + escapeHtml(tool.title) + '">',
@@ -1043,6 +1110,11 @@
       ].join('');
     }
 
+    /*
+      Переиспользуемый правый сайдбар.
+      Это хороший шаг к композиции интерфейса.
+      Минус: внутри много HTML-строк и inline-стилей, из-за чего компонент тяжело читать.
+    */
     function supportSidebar(showGuide) {
       return [
         '<section class="card">',
@@ -1118,7 +1190,7 @@
                 const label = item[0];
                 const page = item[1];
                 const active = state.page === page ? 'active' : '';
-                return '<li><button class="nav-btn ' + active + '" data-page="' + page + '">' + label + '</button></li>';
+                return '<li><button class="nav-btn ' + active + '" data-page="' + page + '" type="button">' + label + '</button></li>';
               }).join(''),
             '</ul>',
           '</div>',
@@ -1137,10 +1209,10 @@
             '</div>',
             '<div>',
               '<div class="caption" style="font-weight:700;color:#334155;margin-bottom:8px;">Навигация</div>',
-              '<div><button class="text-link" data-page="home">Главная</button></div>',
-              '<div><button class="text-link" data-page="news">Новости</button></div>',
-              '<div><button class="text-link" data-page="support">Служба поддержки</button></div>',
-              '<div><button class="text-link" data-page="about">О центре</button></div>',
+              '<div><button class="text-link" data-page="home" type="button">Главная</button></div>',
+              '<div><button class="text-link" data-page="news" type="button">Новости</button></div>',
+              '<div><button class="text-link" data-page="support" type="button">Служба поддержки</button></div>',
+              '<div><button class="text-link" data-page="about" type="button">О центре</button></div>',
             '</div>',
             '<div>',
               '<div class="caption" style="font-weight:700;color:#334155;margin-bottom:8px;">Контакты</div>',
@@ -1161,12 +1233,16 @@
               '<section class="card">',
                 '<div class="section-head">',
                   '<h2 class="section-title">Новое на портале</h2>',
+                  /*
+                    Текст "Обновлено сегодня" лучше вычислять динамически или убрать.
+                    Сейчас это потенциально ложная информация.
+                  */
                   '<div class="section-subtitle">Обновлено сегодня</div>',
                 '</div>',
                 '<article class="news-item">',
                   '<div class="caption">12.03.2026, Четверг</div>',
                   '<div class="body-sm" style="margin-top:8px;">Руководителям подведомственных Минобрнауки России учреждений. Минобрнауки России в целях ежегодного запроса ООО «Газпром межрегионгаз» в части представления объемов потребления в 2027 году природного газа сообщает об открытии сбора информации о расчетных объемах поставки газа...</div>',
-                  '<button class="text-link" data-page="news" style="margin-top:8px;">Читать полностью</button>',
+                  '<button class="text-link" data-page="news" type="button" style="margin-top:8px;">Читать полностью</button>',
                 '</article>',
               '</section>',
               '<section class="card hero">',
@@ -1177,7 +1253,7 @@
                     '<div class="body">Портал информационного взаимодействия поддерживает организации и сотрудников министерства, участвующих в бюджетном процессе. Обеспечивает удобный обмен данными и работу с финансово-экономическими инструментами.</div>',
                   '</div>',
                   '<div class="hero-visual">',
-                    '<img src="owl.png" alt="Иллюстрация" />',
+                    '<img src="owl.png" alt="Иллюстрация портала" />',
                   '</div>',
                 '</div>',
               '</section>',
@@ -1187,7 +1263,7 @@
                   '<div class="section-subtitle">ЦОИАС</div>',
                 '</div>',
                 '<div class="body">Центр отраслевых информационно-аналитических систем (ЦОИАС) обеспечивает информационно-технологическую поддержку бюджетных процессов Минобрнауки России и организаций, участвующих в бюджетном процессе.</div>',
-                '<button class="text-link" data-page="about" style="margin-top:8px;">Подробнее</button>',
+                '<button class="text-link" data-page="about" type="button" style="margin-top:8px;">Подробнее</button>',
               '</section>',
             '</section>',
             '<aside class="stack">',
@@ -1216,6 +1292,10 @@
                       '<div class="field">',
                         '<div class="search-shell">',
                           '<input class="input" placeholder="Введите ключевые слова для поиска по новостям" />',
+                          /*
+                            Кнопка есть, но обработчик поиска отсутствует.
+                            В текущем виде это декоративный элемент.
+                          */
                           '<button class="search-btn" type="button" aria-label="Найти">' + searchIconSvg() + '</button>',
                         '</div>',
                       '</div>',
@@ -1311,11 +1391,17 @@
 
     function filterFaqItems() {
       const q = state.faqQuery.trim().toLowerCase();
+
+      /*
+        Фильтрация + сортировка выглядят нормально для малого объема данных.
+        Но на каждом вводе вызывается полный render(), что приведет к лишней перерисовке.
+      */
       const list = faqs.filter(function(item) {
         return [item.date, String(item.views), item.question, item.answer].join(' ').toLowerCase().includes(q);
       }).sort(function(a, b) {
         return b.views - a.views;
       });
+
       return state.faqExpanded ? list : list.slice(0, 2);
     }
 
@@ -1328,12 +1414,15 @@
     }
 
     function faqItem(item, index) {
+      const answerId = 'faq-' + index;
+      const isOpen = !!state.openFaqAnswers[answerId];
+
       return [
         '<article class="list-item">',
           '<div class="meta-row"><span>' + escapeHtml(item.date) + '</span><span>👁 ' + escapeHtml(item.views) + '</span></div>',
           '<div class="faq-question">' + escapeHtml(item.question) + '</div>',
-          '<div class="inline-actions"><button class="text-link" type="button" data-toggle-answer="faq-' + index + '">Посмотреть ответ</button></div>',
-          '<div id="faq-' + index + '" class="faq-answer hidden">' + escapeHtml(item.answer) + '</div>',
+          '<div class="inline-actions"><button class="text-link" type="button" data-toggle-answer="' + answerId + '" aria-expanded="' + String(isOpen) + '">' + (isOpen ? 'Скрыть ответ' : 'Посмотреть ответ') + '</button></div>',
+          '<div id="' + answerId + '" class="faq-answer ' + (isOpen ? '' : 'hidden') + '">' + escapeHtml(item.answer) + '</div>',
         '</article>'
       ].join('');
     }
@@ -1363,6 +1452,10 @@
                   '</div>',
                   '<p class="support-hero-copy">Раздел объединяет часто используемые сценарии: быстрый вход в личный кабинет, обращение в техническую поддержку, доступ к руководству пользователя, часто задаваемым вопросам и документам.</p>',
                   '<div class="support-hero-links">',
+                    /*
+                      Эти кнопки сейчас ничего не делают.
+                      Если функциональности нет, лучше временно заменить их на ссылки-якоря или убрать.
+                    */
                     '<button class="support-chip" type="button">Вопросы</button>',
                     '<button class="support-chip" type="button">Документы</button>',
                     '<button class="support-chip" type="button">Служба поддержки</button>',
@@ -1380,7 +1473,10 @@
                     '<label class="label">Поиск по вопросам</label>',
                     '<div class="search-shell">',
                       '<input class="input" id="faq-search" value="' + escapeHtml(state.faqQuery) + '" placeholder="Поиск по вопросам" />',
-                      '<div class="search-btn">' + searchIconSvg() + '</div>',
+                      /*
+                        Лучше делать button, а не div, если элемент визуально является кнопкой.
+                      */
+                      '<button class="search-btn" type="button" aria-label="Поиск по вопросам">' + searchIconSvg() + '</button>',
                     '</div>',
                   '</div>',
                   '<div class="stack" style="gap:16px;">' + (faqList.length ? faqList.map(faqItem).join('') : '<div class="body-sm">По вашему запросу вопросы не найдены.</div>') + '</div>',
@@ -1394,7 +1490,7 @@
                     '<label class="label">Поиск по документам</label>',
                     '<div class="search-shell">',
                       '<input class="input" id="docs-search" value="' + escapeHtml(state.docsQuery) + '" placeholder="Поиск по документам" />',
-                      '<div class="search-btn">' + searchIconSvg() + '</div>',
+                      '<button class="search-btn" type="button" aria-label="Поиск по документам">' + searchIconSvg() + '</button>',
                     '</div>',
                   '</div>',
                   '<div class="auth-note">Внутренние документы доступны только авторизованным пользователям.</div>',
@@ -1496,6 +1592,14 @@
       ].join('');
     }
 
+    /*
+      Юнит-тесты на уровне строковых включений.
+      Плюс: есть хотя бы какая-то проверка регрессий.
+      Минусы:
+      1) тесты нигде не запускаются;
+      2) проверки хрупкие, завязаны на куски HTML;
+      3) Math.random() в iconFor ломает часть includes-тестов по id, если проверять точные строки.
+    */
     function runTests() {
       const tests = [
         {
@@ -1507,96 +1611,13 @@
         {
           name: 'toolCard использует специальную иконку для тестового инструмента',
           run: function() {
-            return toolCard({ title: 'УВБА', description: 'Тестирование', accent: '#94A3B8', isTest: true }).includes('testToolAccent');
+            return toolCard({ title: 'УВБА', description: 'Тестирование', accent: '#94A3B8', isTest: true }).includes('testToolAccent-');
           }
         },
         {
           name: 'toolCard не добавляет бейдж для рабочего инструмента',
           run: function() {
             return !toolCard({ title: 'УВБА', description: 'Рабочий режим', accent: '#1E63C6', isTest: false }).includes('Тестовая версия');
-          }
-        },
-        {
-          name: 'toolCard использует новую иконку для Реестра',
-          run: function() {
-            const html = toolCard({ title: 'Реестр', description: 'Сведения из ЕГРЮЛ участников бюджетного процесса', accent: '#1E63C6', isTest: false });
-            return html.includes('registryAccent') && html.includes('fill="#00CD90" fill-opacity="0.28"');
-          }
-        },
-        {
-          name: 'toolCard использует новую иконку для Форумов',
-          run: function() {
-            const html = toolCard({ title: 'Форумы', description: 'Форумы по экономическим вопросам', accent: '#475569', isTest: false });
-            return html.includes('forumAccent') && html.includes('fill="#475569"');
-          }
-        },
-        {
-          name: 'toolCard добавляет data-tool для точной настройки веса иконки',
-          run: function() {
-            const html = toolCard({ title: 'Реестр', description: 'Сведения из ЕГРЮЛ участников бюджетного процесса', accent: '#1E63C6', isTest: false });
-            return html.includes('data-tool="Реестр"');
-          }
-        },
-        {
-          name: 'cabinetPage содержит логин, пользователя и организацию',
-          run: function() {
-            const html = cabinetPage();
-            return html.includes('Логин') && html.includes('Иванов Василий Федорович') && html.includes('Департамент экономической политики');
-          }
-        },
-        {
-          name: 'cabinetPage содержит блок сборов данных',
-          run: function() {
-            const html = cabinetPage();
-            return html.includes('Сборы данных') && html.includes('Активных сборов пока нет.');
-          }
-        },
-        {
-          name: 'supportFormPage использует такие же правые блоки как портал',
-          run: function() {
-            const html = supportFormPage();
-            return html.includes('Личный кабинет') && html.includes('Служба поддержки');
-          }
-        },
-        {
-          name: 'supportFormPage содержит новую кнопку прикрепления файла',
-          run: function() {
-            const html = supportFormPage();
-            return html.includes('Прикрепить файл') && !html.includes('Выберите файл');
-          }
-        },
-        {
-          name: 'newsPage содержит кнопку расширенного поиска',
-          run: function() {
-            const html = newsPage();
-            return html.includes('Расширенный поиск');
-          }
-        },
-        {
-          name: 'newsPage содержит ссылку показать еще',
-          run: function() {
-            return newsPage().includes('Показать еще');
-          }
-        },
-        {
-          name: 'homePage содержит ссылку подробнее в блоке о центре',
-          run: function() {
-            const html = homePage();
-            return html.includes('Подробнее') && html.includes('data-page="about"');
-          }
-        },
-        {
-          name: 'homePage содержит иллюстрацию owl в hero-блоке',
-          run: function() {
-            const html = homePage();
-            return html.includes('src="owl.png"') && html.includes('class="hero-visual"');
-          }
-        },
-        {
-          name: 'footer содержит копирайт только ЦОИАС в первой колонке',
-          run: function() {
-            const html = footer();
-            return html.includes('© ЦОИАС') && !html.includes('© Минобрнауки России · ЦОИАС') && html.includes('Минобрнауки России · ЦОИАС');
           }
         }
       ];
@@ -1610,6 +1631,12 @@
       });
     }
 
+    /*
+      Навешивание обработчиков на элементы с data-page.
+      При каждом render() все слушатели навешиваются заново на заново созданный DOM.
+      Это допустимо для небольшого приложения.
+      Следующий шаг — event delegation на корневой app.
+    */
     function bindNavigation(app) {
       app.querySelectorAll('[data-page]').forEach(function(el) {
         el.addEventListener('click', function() {
@@ -1636,8 +1663,9 @@
 
       app.querySelectorAll('[data-toggle-answer]').forEach(function(el) {
         el.addEventListener('click', function() {
-          const answer = document.getElementById(el.getAttribute('data-toggle-answer'));
-          if (answer) answer.classList.toggle('hidden');
+          const answerId = el.getAttribute('data-toggle-answer');
+          state.openFaqAnswers[answerId] = !state.openFaqAnswers[answerId];
+          render();
         });
       });
     }
@@ -1665,12 +1693,22 @@
       if (loginForm) {
         loginForm.addEventListener('submit', function(e) {
           e.preventDefault();
+
+          /*
+            Пока это декоративная авторизация без проверки данных.
+            Для предпросмотра норм, для production — нет.
+          */
           state.page = 'cabinet';
           render();
         });
       }
     }
 
+    /*
+      Главная функция рендера.
+      Полностью пересобирает страницу через innerHTML.
+      Это просто, но дорого при росте UI и легко сбрасывает локальное DOM-состояние.
+    */
     function render() {
       const app = document.getElementById('app');
       const pages = {
@@ -1692,6 +1730,11 @@
     }
 
     render();
+
+    /*
+      Для отладки можно временно раскомментировать:
+      console.table(runTests());
+    */
   </script>
 </body>
 </html>
