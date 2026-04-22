@@ -669,6 +669,13 @@
     .auth-note { margin-bottom: 12px; }
     .hidden { display: none !important; }
 
+    .login-links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
     .notice-bar {
       padding: 14px 16px;
       border-radius: 16px;
@@ -830,10 +837,7 @@
       transition: transform .2s ease;
     }
 
-    .alert-toggle[aria-expanded="false"]::before {
-      transform: rotate(-90deg);
-    }
-
+    .alert-toggle[aria-expanded="false"]::before { transform: rotate(-90deg); }
     .alert-collapsible-body.hidden { display: none !important; }
 
     .docs-hero {
@@ -1109,6 +1113,7 @@
       .personal-doc-title { font-size: 15px; line-height: 22px; }
       .personal-doc-actions { justify-items: start; }
       .personal-doc-download { width: 100%; }
+      .login-links { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -1116,9 +1121,7 @@
   <div id="app"></div>
 
   <script>
-    const config = {
-      showEmail: false
-    };
+    const config = { showEmail: false };
 
     const state = {
       page: 'home',
@@ -1155,7 +1158,7 @@
         paragraphs: [
           'Руководителям организаций, подведомственных Минобрнауки России. Письмо Минобрнауки России от 15 апреля 2026 года № МН-18/198 «О предоставлении информации».',
           'Согласно постановлению Правительства Российской Федерации от 11 ноября 2023 г. № 1896 «Об утверждении Правил предоставления из федерального бюджета субсидий бюджетным и автономным учреждениям на иные цели» в части расчета коэффициента платной деятельности Департамент экономической политики Минобрнауки России (далее – Департамент) просит предоставить сведения для расчета указанного показателя путем заполнения форм на портале cbias.ru в разделе «Сбор и обработка плановых и отчетных показателей / Сведения для расчета коэффициента платной деятельности / Апрель 2026» в срок до 5 мая 2026 года включительно.',
-          'По вопросам заполнения сведений обращаться в службу поддержки Портала путем заполнения формы обращения (http://www.cbias.ru/sso_app/support.spf) и по телефонам 8 (495) 225-14-43, 8 (495) 225-14-47.',
+          'По вопросам заполнения сведений обращаться в службу поддержки Портала путем заполнения формы обращения и по телефонам 8 (495) 225-14-43, 8 (495) 225-14-47.',
           'Департамент обращает внимание на необходимость качественного планирования показателей, учитываемых при определении планируемого объема доходов от платной деятельности.',
           'Учитывая изложенное, Департамент просит обеспечить предоставление достоверных данных и обращает внимание, что руководители организаций несут персональную ответственность за предоставленные сведения.'
         ]
@@ -1190,73 +1193,18 @@
     ];
 
     const documents = [
-      {
-        date: '26.03.2026',
-        level: 'Федеральный',
-        number: '21-08-06/24891',
-        title: 'Письмо Минфина России от 26 марта 2026 года №21-08-06/24891'
-      },
-      {
-        date: '25.03.2026',
-        level: 'Ведомственный',
-        number: 'МН-18/177',
-        title: 'Письмо Минобрнауки России от 25 марта 2026 года №МН-18/177 «О наличии просроченной кредиторской задолженности по состоянию на 01.04.2026»'
-      },
-      {
-        date: '20.03.2026',
-        level: 'Ведомственный',
-        number: 'МН-17/165',
-        title: 'Письмо Минобрнауки России от 20 марта 2026 года №МН-17/165 «О предоставлении уточненных плановых показателей»'
-      },
-      {
-        date: '18.03.2026',
-        level: 'Федеральный',
-        number: '02-12-11/22014',
-        title: 'Письмо Федерального казначейства от 18 марта 2026 года №02-12-11/22014 «О порядке отражения отдельных операций в отчетности»'
-      }
+      { date: '26.03.2026', level: 'Федеральный', number: '21-08-06/24891', title: 'Письмо Минфина России от 26 марта 2026 года №21-08-06/24891' },
+      { date: '25.03.2026', level: 'Ведомственный', number: 'МН-18/177', title: 'Письмо Минобрнауки России от 25 марта 2026 года №МН-18/177 «О наличии просроченной кредиторской задолженности по состоянию на 01.04.2026»' },
+      { date: '20.03.2026', level: 'Ведомственный', number: 'МН-17/165', title: 'Письмо Минобрнауки России от 20 марта 2026 года №МН-17/165 «О предоставлении уточненных плановых показателей»' },
+      { date: '18.03.2026', level: 'Федеральный', number: '02-12-11/22014', title: 'Письмо Федерального казначейства от 18 марта 2026 года №02-12-11/22014 «О порядке отражения отдельных операций в отчетности»' }
     ];
 
     const personalDocuments = [
-      {
-        date: '28.05.2025',
-        time: '21:10',
-        title: 'Протокол совещания по вопросу реализации пилотного проекта по введению новых систем оплаты труда работников образовательных организаций высшего образования от 7 мая 2025 года № 18-пр/17',
-        filename: '2025_05_07_Протокол_совещ._НСОТ_18_пр_17.pdf',
-        size: '393,57 КБ',
-        tag: 'Протокол'
-      },
-      {
-        date: '10.03.2025',
-        time: '10:51',
-        title: 'Письмо Минобрнауки России от 6 марта 2025 года № МН-18/36 о предоставлении бухгалтерской отчетности, форм ЗП-образование, ЗП-наука за 2023, 2024 гг',
-        filename: '2025_03_06_МН_18_36_НСОТ_бухотч.pdf',
-        size: '866,59 КБ',
-        tag: 'Письмо'
-      },
-      {
-        date: '18.12.2024',
-        time: '19:18',
-        title: 'Презентация с совещания 17 декабря 2024 года (вузы) под председательством Министра науки и высшего образования Российской Федерации В.Н. Фалькова по вопросу «О предварительных итогах 2024 года и планах на 2025 год»',
-        filename: '2024_12_17_Презентация_с_совещания_с_Министром_вузы.pdf',
-        size: '15943,29 КБ',
-        tag: 'Презентация'
-      },
-      {
-        date: '17.09.2024',
-        time: '10:44',
-        title: 'Письмо Минобрнауки России от 16 сентября 2024 года № МН-18/1478-АО «О запросе информации» о нагрузке и нормах труда работников, работающих на условиях полной занятости, по профессиональным-квалификационным группам (далее — ПКГ) должностей работников высшего и дополнительного профессионального образования (в части профессорско-преподавательского состава) и работников сферы научных исследований и разработок (в части научных сотрудников)',
-        filename: '2024_09_16_МН_18_1478_АО_Нагрузка_ППС_и_НС.pdf',
-        size: '573,12 КБ',
-        tag: 'Письмо'
-      },
-      {
-        date: '13.12.2023',
-        time: '21:43',
-        title: 'Письмо Минобрнауки России от 13.12.2023 № 18/2374-АО «Об обеспечении участия в независимой оценке компетенций»',
-        filename: '2023_12_13_МН_18_2374_АО_НОК_не_прошедшие.pdf',
-        size: '694,15 КБ',
-        tag: 'Письмо'
-      }
+      { date: '28.05.2025', time: '21:10', title: 'Протокол совещания по вопросу реализации пилотного проекта по введению новых систем оплаты труда работников образовательных организаций высшего образования от 7 мая 2025 года № 18-пр/17', filename: '2025_05_07_Протокол_совещ._НСОТ_18_пр_17.pdf', size: '393,57 КБ', tag: 'Протокол' },
+      { date: '10.03.2025', time: '10:51', title: 'Письмо Минобрнауки России от 6 марта 2025 года № МН-18/36 о предоставлении бухгалтерской отчетности, форм ЗП-образование, ЗП-наука за 2023, 2024 гг', filename: '2025_03_06_МН_18_36_НСОТ_бухотч.pdf', size: '866,59 КБ', tag: 'Письмо' },
+      { date: '18.12.2024', time: '19:18', title: 'Презентация с совещания 17 декабря 2024 года (вузы) под председательством Министра науки и высшего образования Российской Федерации В.Н. Фалькова по вопросу «О предварительных итогах 2024 года и планах на 2025 год»', filename: '2024_12_17_Презентация_с_совещания_с_Министром_вузы.pdf', size: '15943,29 КБ', tag: 'Презентация' },
+      { date: '17.09.2024', time: '10:44', title: 'Письмо Минобрнауки России от 16 сентября 2024 года № МН-18/1478-АО «О запросе информации» о нагрузке и нормах труда работников, работающих на условиях полной занятости, по профессиональным-квалификационным группам (далее — ПКГ) должностей работников высшего и дополнительного профессионального образования (в части профессорско-преподавательского состава) и работников сферы научных исследований и разработок (в части научных сотрудников)', filename: '2024_09_16_МН_18_1478_АО_Нагрузка_ППС_и_НС.pdf', size: '573,12 КБ', tag: 'Письмо' },
+      { date: '13.12.2023', time: '21:43', title: 'Письмо Минобрнауки России от 13.12.2023 № 18/2374-АО «Об обеспечении участия в независимой оценке компетенций»', filename: '2023_12_13_МН_18_2374_АО_НОК_не_прошедшие.pdf', size: '694,15 КБ', tag: 'Письмо' }
     ];
 
     const workingTools = [
@@ -1344,10 +1292,7 @@
     function highlightNewsParagraph(text, newsIndex) {
       let result = escapeHtml(text);
       if (newsIndex === 0) {
-        result = result.replace(
-          'Расчетные объемы поставки газа на 2027 год',
-          '<span class="text-link" style="text-decoration:underline;">Расчетные объемы поставки газа на 2027 год</span>'
-        );
+        result = result.replace('Расчетные объемы поставки газа на 2027 год', '<span class="text-link" style="text-decoration:underline;">Расчетные объемы поставки газа на 2027 год</span>');
       }
       return result;
     }
@@ -1427,29 +1372,30 @@
       ].join('');
     }
 
-    function supportSidebar(showGuide) {
-      const authBlock = state.isAuthenticated
-        ? renderProfileCard()
-        : [
-            '<section class="card">',
-              '<div class="section-head">',
-                '<h2 class="section-title">Личный кабинет</h2>',
-              '</div>',
-              '<form id="support-login-form" class="stack" style="gap:16px;">',
-                '<div class="field">',
-                  '<label class="label">Логин</label>',
-                  '<input class="input" placeholder="Введите логин">',
-                '</div>',
-                passwordField(),
-                '<div class="row-between caption">',
-                  '<span></span>',
-                  '<a class="link" href="#">Забыли пароль?</a>',
-                '</div>',
-                '<button class="btn btn-primary" type="submit">Войти</button>',
-              '</form>',
-            '</section>'
-          ].join('');
+    function renderLoginCard() {
+      return [
+        '<section class="card">',
+          '<div class="section-head">',
+            '<h2 class="section-title">Личный кабинет</h2>',
+          '</div>',
+          '<form id="support-login-form" class="stack" style="gap:16px;">',
+            '<div class="field">',
+              '<label class="label">Логин</label>',
+              '<input class="input" placeholder="Введите логин">',
+            '</div>',
+            passwordField(),
+            '<div class="login-links caption">',
+              '<button class="text-link" type="button" data-action="register">Регистрация</button>',
+              '<a class="link" href="#">Забыли пароль?</a>',
+            '</div>',
+            '<button class="btn btn-primary" type="submit">Войти</button>',
+          '</form>',
+        '</section>'
+      ].join('');
+    }
 
+    function supportSidebar(showGuide) {
+      const authBlock = state.isAuthenticated ? renderProfileCard() : renderLoginCard();
       return [
         authBlock,
         '<section class="card support">',
@@ -1494,30 +1440,16 @@
 
     function navbar() {
       const items = state.isAuthenticated
-        ? [
-            ['Главная', 'home'],
-            ['Новости', 'news'],
-            ['Личный кабинет', 'cabinet'],
-            ['Мои документы', 'documents'],
-            ['Служба поддержки', 'support'],
-            ['О центре', 'about']
-          ]
-        : [
-            ['Главная', 'home'],
-            ['Новости', 'news'],
-            ['Служба поддержки', 'support'],
-            ['О центре', 'about']
-          ];
+        ? [['Главная', 'home'], ['Новости', 'news'], ['Личный кабинет', 'cabinet'], ['Мои документы', 'documents'], ['Служба поддержки', 'support'], ['О центре', 'about']]
+        : [['Главная', 'home'], ['Новости', 'news'], ['Служба поддержки', 'support'], ['О центре', 'about']];
 
       return [
         '<nav class="nav">',
           '<div class="container">',
             '<ul class="nav-list">',
               items.map(function(item) {
-                const label = item[0];
-                const page = item[1];
-                const active = state.page === page ? 'active' : '';
-                return '<li><button class="nav-btn ' + active + '" data-page="' + page + '" type="button">' + label + '</button></li>';
+                const active = state.page === item[1] ? 'active' : '';
+                return '<li><button class="nav-btn ' + active + '" data-page="' + item[1] + '" type="button">' + item[0] + '</button></li>';
               }).join(''),
             '</ul>',
           '</div>',
@@ -1736,7 +1668,6 @@
     function faqItem(item, index) {
       const answerId = 'faq-' + index;
       const isOpen = !!state.openFaqAnswers[answerId];
-
       return [
         '<article class="list-item">',
           '<div class="meta-row"><span>' + escapeHtml(item.date) + '</span><span>👁 ' + escapeHtml(item.views) + '</span></div>',
@@ -1816,7 +1747,6 @@
     function supportPage() {
       const faqList = filterFaqItems();
       const docList = filterDocumentItems();
-
       return [
         '<main class="main">',
           '<div class="container support-grid">',
@@ -1964,55 +1894,14 @@
 
     function runTests() {
       const tests = [
-        {
-          name: 'toolCard добавляет бейдж для тестового инструмента',
-          run: function() {
-            return toolCard({ title: 'УВБА', description: 'Тестирование', accent: '#94A3B8', isTest: true }).includes('Тестовая версия');
-          }
-        },
-        {
-          name: 'toolCard использует специальную иконку для тестового инструмента',
-          run: function() {
-            return toolCard({ title: 'УВБА', description: 'Тестирование', accent: '#94A3B8', isTest: true }).includes('testToolAccent-');
-          }
-        },
-        {
-          name: 'toolCard не добавляет бейдж для рабочего инструмента',
-          run: function() {
-            return !toolCard({ title: 'УВБА', description: 'Рабочий режим', accent: '#1E63C6', isTest: false }).includes('Тестовая версия');
-          }
-        },
-        {
-          name: 'supportSidebar до входа не показывает профиль',
-          run: function() {
-            state.isAuthenticated = false;
-            return supportSidebar(false).includes('Личный кабинет') && !supportSidebar(false).includes('Профиль');
-          }
-        },
-        {
-          name: 'supportSidebar после входа показывает профиль и кнопку настроек',
-          run: function() {
-            state.isAuthenticated = true;
-            const html = supportSidebar(false);
-            state.isAuthenticated = false;
-            return html.includes('Профиль') && html.includes('Настройки') && html.includes('Выйти');
-          }
-        },
-        {
-          name: 'navbar после входа показывает личные разделы',
-          run: function() {
-            state.isAuthenticated = true;
-            const html = navbar();
-            state.isAuthenticated = false;
-            return html.includes('Личный кабинет') && html.includes('Мои документы');
-          }
-        },
-        {
-          name: 'documentsPage содержит ссылку показать еще',
-          run: function() {
-            return documentsPage().includes('Показать еще');
-          }
-        }
+        { name: 'toolCard добавляет бейдж для тестового инструмента', run: function() { return toolCard({ title: 'УВБА', description: 'Тестирование', accent: '#94A3B8', isTest: true }).includes('Тестовая версия'); } },
+        { name: 'toolCard использует специальную иконку для тестового инструмента', run: function() { return toolCard({ title: 'УВБА', description: 'Тестирование', accent: '#94A3B8', isTest: true }).includes('testToolAccent-'); } },
+        { name: 'toolCard не добавляет бейдж для рабочего инструмента', run: function() { return !toolCard({ title: 'УВБА', description: 'Рабочий режим', accent: '#1E63C6', isTest: false }).includes('Тестовая версия'); } },
+        { name: 'supportSidebar до входа показывает регистрацию', run: function() { state.isAuthenticated = false; return supportSidebar(false).includes('Регистрация') && supportSidebar(false).includes('Личный кабинет'); } },
+        { name: 'supportSidebar после входа показывает профиль и кнопку настроек', run: function() { state.isAuthenticated = true; const html = supportSidebar(false); state.isAuthenticated = false; return html.includes('Профиль') && html.includes('Настройки') && html.includes('Выйти'); } },
+        { name: 'navbar после входа показывает личные разделы', run: function() { state.isAuthenticated = true; const html = navbar(); state.isAuthenticated = false; return html.includes('Личный кабинет') && html.includes('Мои документы'); } },
+        { name: 'documentsPage содержит ссылку показать еще', run: function() { return documentsPage().includes('Показать еще'); } },
+        { name: 'renderLoginCard содержит кнопку регистрации', run: function() { return renderLoginCard().includes('data-action="register"') && renderLoginCard().includes('Регистрация'); } }
       ];
 
       return tests.map(function(test) {
@@ -2043,6 +1932,12 @@
       app.querySelectorAll('[data-action="settings"]').forEach(function(el) {
         el.addEventListener('click', function() {
           alert('Раздел настроек пока в разработке.');
+        });
+      });
+
+      app.querySelectorAll('[data-action="register"]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          alert('Раздел регистрации пока в разработке.');
         });
       });
     }
@@ -2114,19 +2009,9 @@
 
     function render() {
       const app = document.getElementById('app');
-      const pages = {
-        home: homePage,
-        news: newsPage,
-        support: supportPage,
-        about: aboutPage,
-        cabinet: cabinetPage,
-        documents: documentsPage,
-        'support-form': supportFormPage
-      };
-
+      const pages = { home: homePage, news: newsPage, support: supportPage, about: aboutPage, cabinet: cabinetPage, documents: documentsPage, 'support-form': supportFormPage };
       const pageRenderer = pages[state.page] || homePage;
       app.innerHTML = header() + navbar() + pageRenderer() + footer();
-
       bindNavigation(app);
       bindToggles(app);
       bindSearch();
