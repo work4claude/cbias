@@ -5,11 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ЦОИАС — предпросмотр</title>
   <style>
-    /*
-      Базовые дизайн-токены.
-      Хорошо, что основные цвета и радиусы вынесены в :root — это упрощает поддержку.
-      Стоит продолжить в том же духе и вынести сюда также часто повторяющиеся отступы.
-    */
     :root {
       --bg: #f4f7fb;
       --card: #ffffff;
@@ -486,26 +481,10 @@
       transform-origin: center;
     }
 
-    /*
-      Это точечная настройка внешнего вида иконок.
-      Решение рабочее, но хрупкое: оно зависит от точных заголовков карточек.
-      Лучше завести модификаторы классов, например tool-card--registry.
-    */
-    .tool-card[data-tool="УВБА"] .tool-icon svg {
-      transform: scale(0.96);
-    }
-
-    .tool-card[data-tool="Паспорта работ"] .tool-icon svg {
-      transform: scale(0.94);
-    }
-
-    .tool-card[data-tool="Реестр"] .tool-icon svg {
-      transform: scale(0.91);
-    }
-
-    .tool-card[data-tool="Форумы"] .tool-icon svg {
-      transform: scale(0.93);
-    }
+    .tool-card[data-tool="УВБА"] .tool-icon svg { transform: scale(0.96); }
+    .tool-card[data-tool="Паспорта работ"] .tool-icon svg { transform: scale(0.94); }
+    .tool-card[data-tool="Реестр"] .tool-icon svg { transform: scale(0.91); }
+    .tool-card[data-tool="Форумы"] .tool-icon svg { transform: scale(0.93); }
 
     .tool-title {
       margin: 0 0 8px;
@@ -650,9 +629,7 @@
       cursor: pointer;
     }
 
-    .news-advanced-btn:hover {
-      background: #ffffff;
-    }
+    .news-advanced-btn:hover { background: #ffffff; }
 
     .support-hero {
       display: grid;
@@ -686,18 +663,12 @@
       white-space: nowrap;
     }
 
-    .support-chip:hover {
-      background: #eef4ff;
-    }
+    .support-chip:hover { background: #eef4ff; }
 
     .required { color: #dc2626; }
     .auth-note { margin-bottom: 12px; }
     .hidden { display: none !important; }
 
-    /*
-      В исходном коде этот класс используется, но не был описан.
-      Из-за этого визуально блок есть в DOM, но не оформлен.
-    */
     .notice-bar {
       padding: 14px 16px;
       border-radius: 16px;
@@ -754,28 +725,14 @@
       color: #9a3412;
     }
 
-    .alert-tag.important::before {
-      background: #f59e0b;
-    }
+    .alert-tag.important::before { background: #f59e0b; }
 
     .alert-tag.critical {
       background: rgba(239, 68, 68, 0.12);
       color: #7f1d1d;
     }
 
-    .alert-tag.critical::before {
-      background: #ef4444;
-    }
-
-    .alert-badge::before {
-      content: "";
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: #f97316;
-      box-shadow: 0 0 0 6px rgba(249, 115, 22, 0.12);
-      flex: 0 0 10px;
-    }
+    .alert-tag.critical::before { background: #ef4444; }
 
     .alert-list {
       display: grid;
@@ -822,9 +779,7 @@
       font-weight: 700;
     }
 
-    .alert-download:hover {
-      background: #ffedd5;
-    }
+    .alert-download:hover { background: #ffedd5; }
 
     .alert-phones {
       display: grid;
@@ -865,9 +820,7 @@
       cursor: pointer;
     }
 
-    .alert-toggle:hover {
-      text-decoration: underline;
-    }
+    .alert-toggle:hover { text-decoration: underline; }
 
     .alert-toggle::before {
       content: "▾";
@@ -881,8 +834,192 @@
       transform: rotate(-90deg);
     }
 
-    .alert-collapsible-body.hidden {
-      display: none !important;
+    .alert-collapsible-body.hidden { display: none !important; }
+
+    .docs-hero {
+      display: grid;
+      gap: 22px;
+    }
+
+    .docs-toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+      align-items: center;
+    }
+
+    .docs-search {
+      display: grid;
+      grid-template-columns: 1fr 56px;
+      border: 1px solid #cfe0f7;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .docs-search input {
+      border: 0;
+      padding: 15px 16px;
+      font: inherit;
+      background: transparent;
+    }
+
+    .docs-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .docs-summary-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #f8fbff;
+      border: 1px solid #d7e5f7;
+      color: #334155;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    .personal-docs-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .personal-doc-card {
+      display: grid;
+      grid-template-columns: 112px minmax(0, 1fr) 132px;
+      gap: 16px;
+      padding: 18px 20px;
+      border-radius: 20px;
+      border: 1px solid #dde7f5;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+      align-items: start;
+    }
+
+    .personal-doc-date {
+      display: grid;
+      gap: 2px;
+      color: #64748b;
+      font-size: 13px;
+      line-height: 18px;
+      white-space: nowrap;
+    }
+
+    .personal-doc-date strong {
+      color: #64748b;
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 500;
+    }
+
+    .personal-doc-body {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .personal-doc-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .personal-doc-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #eef4ff;
+      color: var(--brand);
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 600;
+    }
+
+    .personal-doc-title {
+      margin: 0;
+      color: #0f172a;
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 400;
+    }
+
+    .personal-doc-file {
+      color: #64748b;
+      font-size: 13px;
+      line-height: 18px;
+      word-break: break-word;
+    }
+
+    .personal-doc-actions {
+      display: grid;
+      gap: 8px;
+      justify-items: stretch;
+    }
+
+    .personal-doc-size {
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      color: #475569;
+      font-size: 13px;
+      line-height: 18px;
+      text-align: center;
+    }
+
+    .personal-doc-download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: var(--brand-soft);
+      border: 1px solid #cfe0f7;
+      color: var(--brand);
+      text-decoration: none;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 700;
+    }
+
+    .personal-doc-download:hover { background: #e3eefc; }
+
+    .personal-doc-download svg {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
+    }
+
+    .profile-card {
+      display: grid;
+      gap: 12px;
+    }
+
+    .profile-name {
+      color: #0f172a;
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 500;
+    }
+
+    .profile-role,
+    .profile-org {
+      color: #64748b;
+      font-size: 15px;
+      line-height: 22px;
+    }
+
+    .profile-actions {
+      display: grid;
+      gap: 12px;
+      margin-top: 4px;
     }
 
     .footer {
@@ -899,11 +1036,7 @@
       align-items: start;
     }
 
-    .footer-grid > div:nth-child(2) {
-      justify-self: end;
-      text-align: left;
-    }
-
+    .footer-grid > div:nth-child(2),
     .footer-grid > div:nth-child(3) {
       justify-self: end;
       text-align: left;
@@ -930,7 +1063,9 @@
       .support-secondary-grid,
       .form-grid,
       .footer-grid,
-      .hero-grid {
+      .hero-grid,
+      .personal-doc-card,
+      .docs-toolbar {
         grid-template-columns: 1fr;
       }
 
@@ -970,28 +1105,24 @@
       .news-advanced-btn { width: 100%; }
       .support-hero-links { gap: 12px; }
       .support-chip { width: 100%; white-space: normal; }
+      .personal-doc-card { padding: 16px; gap: 14px; }
+      .personal-doc-title { font-size: 15px; line-height: 22px; }
+      .personal-doc-actions { justify-items: start; }
+      .personal-doc-download { width: 100%; }
     }
   </style>
 </head>
 <body>
-  <!--
-    Корневой контейнер приложения.
-    Весь интерфейс ниже рендерится в него через render().
-  -->
   <div id="app"></div>
 
   <script>
-    /*
-      Единое состояние приложения.
-      Для маленького демо это нормально, но при росте функциональности тут быстро начнется хаос.
-      Первое, что стоит добавить — хранение состояния раскрытых FAQ-ответов.
-    */
     const config = {
       showEmail: false
     };
 
     const state = {
       page: 'home',
+      isAuthenticated: false,
       faqExpanded: false,
       docsExpanded: false,
       faqQuery: '',
@@ -999,11 +1130,6 @@
       openFaqAnswers: {}
     };
 
-    /*
-      Данные пока захардкожены прямо в коде.
-      Для статического предпросмотра это допустимо.
-      Для реального проекта лучше вынести их в отдельный слой: API / mock / data-файл.
-    */
     const newsItems = [
       {
         date: '12.03.2026',
@@ -1024,11 +1150,6 @@
         ]
       },
       {
-        /*
-          В исходном коде здесь есть логическая нестыковка:
-          дата новости 05.01.2026, а внутри абзаца указано письмо от 15 апреля 2026 года.
-          Это выглядит как ошибка в данных.
-        */
         date: '05.01.2026',
         weekday: 'Понедельник',
         paragraphs: [
@@ -1095,6 +1216,49 @@
       }
     ];
 
+    const personalDocuments = [
+      {
+        date: '28.05.2025',
+        time: '21:10',
+        title: 'Протокол совещания по вопросу реализации пилотного проекта по введению новых систем оплаты труда работников образовательных организаций высшего образования от 7 мая 2025 года № 18-пр/17',
+        filename: '2025_05_07_Протокол_совещ._НСОТ_18_пр_17.pdf',
+        size: '393,57 КБ',
+        tag: 'Протокол'
+      },
+      {
+        date: '10.03.2025',
+        time: '10:51',
+        title: 'Письмо Минобрнауки России от 6 марта 2025 года № МН-18/36 о предоставлении бухгалтерской отчетности, форм ЗП-образование, ЗП-наука за 2023, 2024 гг',
+        filename: '2025_03_06_МН_18_36_НСОТ_бухотч.pdf',
+        size: '866,59 КБ',
+        tag: 'Письмо'
+      },
+      {
+        date: '18.12.2024',
+        time: '19:18',
+        title: 'Презентация с совещания 17 декабря 2024 года (вузы) под председательством Министра науки и высшего образования Российской Федерации В.Н. Фалькова по вопросу «О предварительных итогах 2024 года и планах на 2025 год»',
+        filename: '2024_12_17_Презентация_с_совещания_с_Министром_вузы.pdf',
+        size: '15943,29 КБ',
+        tag: 'Презентация'
+      },
+      {
+        date: '17.09.2024',
+        time: '10:44',
+        title: 'Письмо Минобрнауки России от 16 сентября 2024 года № МН-18/1478-АО «О запросе информации» о нагрузке и нормах труда работников, работающих на условиях полной занятости, по профессиональным-квалификационным группам (далее — ПКГ) должностей работников высшего и дополнительного профессионального образования (в части профессорско-преподавательского состава) и работников сферы научных исследований и разработок (в части научных сотрудников)',
+        filename: '2024_09_16_МН_18_1478_АО_Нагрузка_ППС_и_НС.pdf',
+        size: '573,12 КБ',
+        tag: 'Письмо'
+      },
+      {
+        date: '13.12.2023',
+        time: '21:43',
+        title: 'Письмо Минобрнауки России от 13.12.2023 № 18/2374-АО «Об обеспечении участия в независимой оценке компетенций»',
+        filename: '2023_12_13_МН_18_2374_АО_НОК_не_прошедшие.pdf',
+        size: '694,15 КБ',
+        tag: 'Письмо'
+      }
+    ];
+
     const workingTools = [
       { title: 'УВБА', description: 'Учет и ведение бюджетных ассигнований', accent: '#1E63C6' },
       { title: 'Паспорта работ', description: 'Формирование и ведение паспортов выполнения работ', accent: '#00A67D' },
@@ -1107,12 +1271,6 @@
       { title: 'Паспорта работ', description: 'Тестирование', accent: '#94A3B8', isTest: true }
     ];
 
-    /*
-      Базовая защита перед подстановкой текста в HTML.
-      Это один из самых полезных кусочков в этом файле.
-      Минус в том, что защита работает только там, где разработчик не забыл вызвать escapeHtml вручную.
-      Более надежный путь — строить DOM через createElement/textContent.
-    */
     function escapeHtml(value) {
       return String(value)
         .replace(/&/g, '&amp;')
@@ -1122,13 +1280,6 @@
         .replace(/'/g, '&#39;');
     }
 
-    /*
-      Генератор SVG-иконок для карточек инструментов.
-      Сейчас функция слишком большая и уже просится на декомпозицию:
-      - отдельная функция для каждого SVG
-      - мапа title -> renderer
-      - уникальные ids для linearGradient, чтобы избежать конфликтов в DOM
-    */
     function iconFor(title, color, isTest) {
       const safeColor = escapeHtml(color);
       const uid = Math.random().toString(36).slice(2, 8);
@@ -1137,12 +1288,7 @@
         return '<svg width="32" height="32" viewBox="0 -960 960 960" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
           '<path d="M739-83.5q-7-2.5-13-8.5L522-296q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l85-85q6-6 13-8.5t15-2.5q8 0 15 2.5t13 8.5l204 204q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13l-85 85q-6 6-13 8.5T754-81q-8 0-15-2.5Zm-549.5.5q-7.5-3-13.5-9l-84-84q-6-6-9-13.5T80-205q0-8 3-15t9-13l212-212h85l34-34-165-165h-57L80-765l113-113 121 121v57l165 165 116-116-43-43 56-56H495l-28-28 142-142 28 28v113l56-56 142 142q17 17 26 38.5t9 45.5q0 24-9 46t-26 39l-85-85-56 56-42-42-207 207v84L233-92q-6 6-13 9t-15 3q-8 0-15.5-3Z" fill="#5B6F95"/>' +
           '<path d="M739-83.5q-7-2.5-13-8.5L522-296q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l85-85q6-6 13-8.5t15-2.5q8 0 15 2.5t13 8.5l204 204q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13l-85 85q-6 6-13 8.5T754-81q-8 0-15-2.5Zm-549.5.5q-7.5-3-13.5-9l-84-84q-6-6-9-13.5T80-205q0-8 3-15t9-13l212-212h85l34-34-165-165h-57L80-765l113-113 121 121v57l165 165 116-116-43-43 56-56H495l-28-28 142-142 28 28v113l56-56 142 142q17 17 26 38.5t9 45.5q0 24-9 46t-26 39l-85-85-56 56-42-42-207 207v84L233-92q-6 6-13 9t-15 3q-8 0-15.5-3Z" fill="url(#testToolAccent-' + uid + ')" fill-opacity="0.22"/>' +
-          '<defs>' +
-            '<linearGradient id="testToolAccent-' + uid + '" x1="80" y1="-880" x2="878" y2="-80" gradientUnits="userSpaceOnUse">' +
-              '<stop stop-color="#EEF3FB"/>' +
-              '<stop offset="1" stop-color="#003385"/>' +
-            '</linearGradient>' +
-          '</defs>' +
+          '<defs><linearGradient id="testToolAccent-' + uid + '" x1="80" y1="-880" x2="878" y2="-80" gradientUnits="userSpaceOnUse"><stop stop-color="#EEF3FB"/><stop offset="1" stop-color="#003385"/></linearGradient></defs>' +
         '</svg>';
       }
 
@@ -1151,12 +1297,7 @@
           '<path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80ZM120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z" fill="#1E63C6"/>' +
           '<path d="M120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z" fill="#00CD90" fill-opacity="0.22"/>' +
           '<path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80Z" fill="url(#uvbaAccent-' + uid + ')" fill-opacity="0.18"/>' +
-          '<defs>' +
-            '<linearGradient id="uvbaAccent-' + uid + '" x1="120" y1="-840" x2="840" y2="-120" gradientUnits="userSpaceOnUse">' +
-              '<stop stop-color="#EEF3FB"/>' +
-              '<stop offset="1" stop-color="#003385"/>' +
-            '</linearGradient>' +
-          '</defs>' +
+          '<defs><linearGradient id="uvbaAccent-' + uid + '" x1="120" y1="-840" x2="840" y2="-120" gradientUnits="userSpaceOnUse"><stop stop-color="#EEF3FB"/><stop offset="1" stop-color="#003385"/></linearGradient></defs>' +
         '</svg>';
       }
 
@@ -1165,12 +1306,7 @@
           '<path d="M400-400h160v-80H400v80Zm0-120h320v-80H400v80Zm0-120h320v-80H400v80Zm-80 400q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z" fill="#00A67D"/>' +
           '<path d="M400-400h160v-80H400v80Zm0-120h320v-80H400v80Zm0-120h320v-80H400v80Z" fill="#ffffff" fill-opacity="0.9"/>' +
           '<path d="M320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880Z" fill="url(#passportAccent-' + uid + ')" fill-opacity="0.18"/>' +
-          '<defs>' +
-            '<linearGradient id="passportAccent-' + uid + '" x1="240" y1="-880" x2="880" y2="-240" gradientUnits="userSpaceOnUse">' +
-              '<stop stop-color="#EEF3FB"/>' +
-              '<stop offset="1" stop-color="#003385"/>' +
-            '</linearGradient>' +
-          '</defs>' +
+          '<defs><linearGradient id="passportAccent-' + uid + '" x1="240" y1="-880" x2="880" y2="-240" gradientUnits="userSpaceOnUse"><stop stop-color="#EEF3FB"/><stop offset="1" stop-color="#003385"/></linearGradient></defs>' +
         '</svg>';
       }
 
@@ -1180,12 +1316,7 @@
           '<path d="M348.5-291.5Q360-303 360-320t-11.5-28.5Q337-360 320-360t-28.5 11.5Q280-337 280-320t11.5 28.5Q303-280 320-280t28.5-11.5Zm0-160Q360-463 360-480t-11.5-28.5Q337-520 320-520t-28.5 11.5Q280-497 280-480t11.5 28.5Q303-440 320-440t28.5-11.5Zm0-160Q360-623 360-640t-11.5-28.5Q337-680 320-680t-28.5 11.5Q280-657 280-640t11.5 28.5Q303-600 320-600t28.5-11.5Z" fill="#00CD90" fill-opacity="0.28"/>' +
           '<path d="M440-280h240v-80H440v80Zm0-160h240v-80H440v80Zm0-160h240v-80H440v80Z" fill="#ffffff" fill-opacity="0.92"/>' +
           '<path d="M200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840Z" fill="url(#registryAccent-' + uid + ')" fill-opacity="0.18"/>' +
-          '<defs>' +
-            '<linearGradient id="registryAccent-' + uid + '" x1="120" y1="-840" x2="840" y2="-120" gradientUnits="userSpaceOnUse">' +
-              '<stop stop-color="#EEF3FB"/>' +
-              '<stop offset="1" stop-color="#003385"/>' +
-            '</linearGradient>' +
-          '</defs>' +
+          '<defs><linearGradient id="registryAccent-' + uid + '" x1="120" y1="-840" x2="840" y2="-120" gradientUnits="userSpaceOnUse"><stop stop-color="#EEF3FB"/><stop offset="1" stop-color="#003385"/></linearGradient></defs>' +
         '</svg>';
       }
 
@@ -1195,12 +1326,7 @@
           '<path d="M160-473l47-47h393v-280H160v327Z" fill="#ffffff" fill-opacity="0.9"/>' +
           '<path d="M880-80 720-240H320q-33 0-56.5-23.5T240-320v-40h440q33 0 56.5-23.5T760-440v-280h40q33 0 56.5 23.5T880-640v560Z" fill="#1E63C6" fill-opacity="0.14"/>' +
           '<path d="M160-880h440q33 0 56.5 23.5T680-800v280q0 33-23.5 56.5T600-440H240L80-280v-520q0-33 23.5-56.5T160-880Z" fill="url(#forumAccent-' + uid + ')" fill-opacity="0.18"/>' +
-          '<defs>' +
-            '<linearGradient id="forumAccent-' + uid + '" x1="80" y1="-880" x2="880" y2="-80" gradientUnits="userSpaceOnUse">' +
-              '<stop stop-color="#EEF3FB"/>' +
-              '<stop offset="1" stop-color="#003385"/>' +
-            '</linearGradient>' +
-          '</defs>' +
+          '<defs><linearGradient id="forumAccent-' + uid + '" x1="80" y1="-880" x2="880" y2="-80" gradientUnits="userSpaceOnUse"><stop stop-color="#EEF3FB"/><stop offset="1" stop-color="#003385"/></linearGradient></defs>' +
         '</svg>';
       }
 
@@ -1215,10 +1341,6 @@
       return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM200-120q-33 0-56.5-23.5T120-200v-120h80v120h560v-120h80v120q0 33-23.5 56.5T760-120H200Z"/></svg>';
     }
 
-    /*
-      Здесь текст сначала экранируется, и только потом внутри него делается точечная замена.
-      Это хороший компромисс между безопасностью и кастомной разметкой.
-    */
     function highlightNewsParagraph(text, newsIndex) {
       let result = escapeHtml(text);
       if (newsIndex === 0) {
@@ -1230,11 +1352,6 @@
       return result;
     }
 
-    /*
-      Рендер карточки инструмента.
-      Плюс: чистая функция, возвращает только HTML.
-      Минус: зависит от строковых названий и от очень большого iconFor().
-    */
     function toolCard(tool) {
       return [
         '<section class="card tool-card" data-tool="' + escapeHtml(tool.title) + '">',
@@ -1250,7 +1367,7 @@
       ].join('');
     }
 
-        function contactMailCard() {
+    function contactMailCard() {
       return [
         '<div class="info-box body-sm">',
           '<div class="contact-item">',
@@ -1291,30 +1408,50 @@
       ].join('');
     }
 
-    /*
-      Переиспользуемый правый сайдбар.
-      Это хороший шаг к композиции интерфейса.
-      Минус: внутри много HTML-строк и inline-стилей, из-за чего компонент тяжело читать.
-    */
-    function supportSidebar(showGuide) {
+    function renderProfileCard() {
       return [
         '<section class="card">',
           '<div class="section-head">',
-            '<h2 class="section-title">Личный кабинет</h2>',
+            '<h2 class="section-title">Профиль</h2>',
           '</div>',
-          '<form id="support-login-form" class="stack" style="gap:16px;">',
-            '<div class="field">',
-              '<label class="label">Логин</label>',
-              '<input class="input" placeholder="Введите логин">',
+          '<div class="profile-card">',
+            '<div class="profile-name">Иванов Василий Федорович</div>',
+            '<div class="profile-role">Начальник отдела проектов и программ</div>',
+            '<div class="profile-org">Минобрнауки России, Департамент экономической политики</div>',
+            '<div class="profile-actions">',
+              '<button class="btn btn-ghost" type="button" data-action="settings">Настройки</button>',
+              '<button class="btn btn-secondary" type="button" data-action="logout">Выйти</button>',
             '</div>',
-            passwordField(),
-            '<div class="row-between caption">',
-              '<label><input type="checkbox"> Запомнить меня</label>',
-              '<a class="link" href="#">Забыли пароль?</a>',
-            '</div>',
-            '<button class="btn btn-primary" type="submit">Войти</button>',
-          '</form>',
-        '</section>',
+          '</div>',
+        '</section>'
+      ].join('');
+    }
+
+    function supportSidebar(showGuide) {
+      const authBlock = state.isAuthenticated
+        ? renderProfileCard()
+        : [
+            '<section class="card">',
+              '<div class="section-head">',
+                '<h2 class="section-title">Личный кабинет</h2>',
+              '</div>',
+              '<form id="support-login-form" class="stack" style="gap:16px;">',
+                '<div class="field">',
+                  '<label class="label">Логин</label>',
+                  '<input class="input" placeholder="Введите логин">',
+                '</div>',
+                passwordField(),
+                '<div class="row-between caption">',
+                  '<span></span>',
+                  '<a class="link" href="#">Забыли пароль?</a>',
+                '</div>',
+                '<button class="btn btn-primary" type="submit">Войти</button>',
+              '</form>',
+            '</section>'
+          ].join('');
+
+      return [
+        authBlock,
         '<section class="card support">',
           '<div class="section-head">',
             '<h2 class="section-title">Служба поддержки</h2>',
@@ -1356,12 +1493,21 @@
     }
 
     function navbar() {
-      const items = [
-        ['Главная', 'home'],
-        ['Новости', 'news'],
-        ['Служба поддержки', 'support'],
-        ['О центре', 'about']
-      ];
+      const items = state.isAuthenticated
+        ? [
+            ['Главная', 'home'],
+            ['Новости', 'news'],
+            ['Личный кабинет', 'cabinet'],
+            ['Мои документы', 'documents'],
+            ['Служба поддержки', 'support'],
+            ['О центре', 'about']
+          ]
+        : [
+            ['Главная', 'home'],
+            ['Новости', 'news'],
+            ['Служба поддержки', 'support'],
+            ['О центре', 'about']
+          ];
 
       return [
         '<nav class="nav">',
@@ -1393,6 +1539,8 @@
               '<div><button class="text-link" data-page="home" type="button">Главная</button></div>',
               '<div><button class="text-link" data-page="news" type="button">Новости</button></div>',
               '<div><button class="text-link" data-page="support" type="button">Служба поддержки</button></div>',
+              (state.isAuthenticated ? '<div><button class="text-link" data-page="cabinet" type="button">Личный кабинет</button></div>' : ''),
+              (state.isAuthenticated ? '<div><button class="text-link" data-page="documents" type="button">Мои документы</button></div>' : ''),
               '<div><button class="text-link" data-page="about" type="button">О центре</button></div>',
             '</div>',
             '<div>',
@@ -1414,10 +1562,6 @@
               '<section class="card">',
                 '<div class="section-head">',
                   '<h2 class="section-title">Новое на портале</h2>',
-                  /*
-                    Текст "Обновлено сегодня" лучше вычислять динамически или убрать.
-                    Сейчас это потенциально ложная информация.
-                  */
                   '<div class="section-subtitle">Обновлено сегодня</div>',
                 '</div>',
                 '<article class="news-item">',
@@ -1473,10 +1617,6 @@
                       '<div class="field">',
                         '<div class="search-shell">',
                           '<input class="input" placeholder="Введите ключевые слова для поиска по новостям" />',
-                          /*
-                            Кнопка есть, но обработчик поиска отсутствует.
-                            В текущем виде это декоративный элемент.
-                          */
                           '<button class="search-btn" type="button" aria-label="Найти">' + searchIconSvg() + '</button>',
                         '</div>',
                       '</div>',
@@ -1515,7 +1655,6 @@
               '<section class="card alert-card">',
                 '<div class="section-head" style="margin-bottom:18px; align-items:flex-start; flex-direction:column; gap:10px;">',
                   '<h2 class="section-title">Уведомления</h2>',
-                  '',
                 '</div>',
                 '<div class="stack" style="gap:16px;">',
                   '<ol class="alert-list">',
@@ -1569,27 +1708,7 @@
               '</section>',
             '</section>',
             '<aside class="stack">',
-              '<section class="card">',
-                '<div class="section-head">',
-                  '<h2 class="section-title">Авторизация</h2>',
-                  '<div class="section-subtitle">Текущая сессия</div>',
-                '</div>',
-                '<div class="stack" style="gap:16px;">',
-                  '<div class="news-item"><div class="label">Логин</div><div class="body-sm" style="margin-top:4px;">demo@cbias.ru</div></div>',
-                  '<div class="news-item"><div class="label">Пользователь</div><div class="body-sm" style="margin-top:4px;">Иванов Василий Федорович</div></div>',
-                  '<div class="news-item"><div class="label">Организация</div><div class="body-sm" style="margin-top:4px;">Минобрнауки России, Департамент экономической политики, начальник отдела проектов и программ</div></div>',
-                  '<button class="btn btn-secondary" type="button" data-page="home">Выйти</button>',
-                '</div>',
-              '</section>',
-              '<section class="card support">',
-                '<div class="section-head">',
-                  '<h2 class="section-title">Служба поддержки</h2>',
-                '</div>',
-                '<div class="stack" style="gap:12px;">',
-                  '<button class="btn btn-accent" type="button" data-page="support-form"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 -960 960 960" fill="currentColor" style="flex:0 0 28px;"><path d="M80-80v-720q0-33 23.5-56.5T160-880h404q-4 20-4 40t4 40H160v525l46-45h594v-324q23-5 43-13.5t37-22.5v360q0 33-23.5 56.5T800-240H240L80-80Zm80-720v480-480Zm515 45q-35-35-35-85t35-85q35-35 85-35t85 35q35 35 35 85t-35 85q-35 35-85 35t-85-35Z"/></svg>Написать обращение</button>',
-                  contactPhoneCard(),
-                '</div>',
-              '</section>',
+              supportSidebar(false),
             '</aside>',
           '</div>',
         '</main>'
@@ -1598,17 +1717,11 @@
 
     function filterFaqItems() {
       const q = state.faqQuery.trim().toLowerCase();
-
-      /*
-        Фильтрация + сортировка выглядят нормально для малого объема данных.
-        Но на каждом вводе вызывается полный render(), что приведет к лишней перерисовке.
-      */
       const list = faqs.filter(function(item) {
         return [item.date, String(item.views), item.question, item.answer].join(' ').toLowerCase().includes(q);
       }).sort(function(a, b) {
         return b.views - a.views;
       });
-
       return state.faqExpanded ? list : list.slice(0, 2);
     }
 
@@ -1643,6 +1756,63 @@
       ].join('');
     }
 
+    function personalDocumentCard(item) {
+      return [
+        '<article class="personal-doc-card">',
+          '<div class="personal-doc-date">',
+            '<strong>' + escapeHtml(item.date) + '</strong>',
+            '<span>' + escapeHtml(item.time) + '</span>',
+          '</div>',
+          '<div class="personal-doc-body">',
+            '<div class="personal-doc-top">',
+              '<span class="personal-doc-tag">' + escapeHtml(item.tag) + '</span>',
+            '</div>',
+            '<h3 class="personal-doc-title">' + escapeHtml(item.title) + '</h3>',
+            '<div class="personal-doc-file">' + escapeHtml(item.filename) + '</div>',
+          '</div>',
+          '<div class="personal-doc-actions">',
+            '<div class="personal-doc-size">' + escapeHtml(item.size) + '</div>',
+            '<a href="#" class="personal-doc-download"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM200-120q-33 0-56.5-23.5T120-200v-120h80v120h560v-120h80v120q0 33-23.5 56.5T760-120H200Z"/></svg>Скачать</a>',
+          '</div>',
+        '</article>'
+      ].join('');
+    }
+
+    function documentsPage() {
+      return [
+        '<main class="main">',
+          '<div class="container grid">',
+            '<section class="stack">',
+              '<section class="card soft">',
+                '<div class="docs-hero">',
+                  '<div class="section-head" style="margin-bottom:0; align-items:flex-start; flex-direction:column;">',
+                    '<h2 class="section-title">Мои документы</h2>',
+                    '<div class="section-subtitle">Персональные материалы, письма, протоколы и презентации, доступные после авторизации.</div>',
+                  '</div>',
+                  '<div class="docs-toolbar">',
+                    '<div class="docs-search">',
+                      '<input type="text" placeholder="Поиск по названию документа" aria-label="Поиск по персональным документам">',
+                      '<button class="search-btn" type="button" aria-label="Найти">' + searchIconSvg() + '</button>',
+                    '</div>',
+                  '</div>',
+                  '<div class="docs-summary">',
+                    '<div class="docs-summary-chip">Документов: ' + personalDocuments.length + '</div>',
+                    '<div class="docs-summary-chip">Последнее обновление: 28.05.2025</div>',
+                    '<div class="docs-summary-chip">Форматы: PDF, презентации</div>',
+                  '</div>',
+                '</div>',
+              '</section>',
+              '<section class="personal-docs-grid">' + personalDocuments.map(personalDocumentCard).join('') + '</section>',
+              '<div style="margin-top:16px;"><button class="text-link" type="button">Показать еще</button></div>',
+            '</section>',
+            '<aside class="stack">',
+              supportSidebar(false),
+            '</aside>',
+          '</div>',
+        '</main>'
+      ].join('');
+    }
+
     function supportPage() {
       const faqList = filterFaqItems();
       const docList = filterDocumentItems();
@@ -1659,10 +1829,6 @@
                   '</div>',
                   '<p class="support-hero-copy">Раздел объединяет часто используемые сценарии: быстрый вход в личный кабинет, обращение в техническую поддержку, доступ к руководству пользователя, часто задаваемым вопросам и документам.</p>',
                   '<div class="support-hero-links">',
-                    /*
-                      Эти кнопки сейчас ничего не делают.
-                      Если функциональности нет, лучше временно заменить их на ссылки-якоря или убрать.
-                    */
                     '<button class="support-chip" type="button">Вопросы</button>',
                     '<button class="support-chip" type="button">Документы</button>',
                     '<button class="support-chip" type="button">Служба поддержки</button>',
@@ -1680,9 +1846,6 @@
                     '<label class="label">Поиск по вопросам</label>',
                     '<div class="search-shell">',
                       '<input class="input" id="faq-search" value="' + escapeHtml(state.faqQuery) + '" placeholder="Поиск по вопросам" />',
-                      /*
-                        Лучше делать button, а не div, если элемент визуально является кнопкой.
-                      */
                       '<button class="search-btn" type="button" aria-label="Поиск по вопросам">' + searchIconSvg() + '</button>',
                     '</div>',
                   '</div>',
@@ -1799,14 +1962,6 @@
       ].join('');
     }
 
-    /*
-      Юнит-тесты на уровне строковых включений.
-      Плюс: есть хотя бы какая-то проверка регрессий.
-      Минусы:
-      1) тесты нигде не запускаются;
-      2) проверки хрупкие, завязаны на куски HTML;
-      3) Math.random() в iconFor ломает часть includes-тестов по id, если проверять точные строки.
-    */
     function runTests() {
       const tests = [
         {
@@ -1826,6 +1981,37 @@
           run: function() {
             return !toolCard({ title: 'УВБА', description: 'Рабочий режим', accent: '#1E63C6', isTest: false }).includes('Тестовая версия');
           }
+        },
+        {
+          name: 'supportSidebar до входа не показывает профиль',
+          run: function() {
+            state.isAuthenticated = false;
+            return supportSidebar(false).includes('Личный кабинет') && !supportSidebar(false).includes('Профиль');
+          }
+        },
+        {
+          name: 'supportSidebar после входа показывает профиль и кнопку настроек',
+          run: function() {
+            state.isAuthenticated = true;
+            const html = supportSidebar(false);
+            state.isAuthenticated = false;
+            return html.includes('Профиль') && html.includes('Настройки') && html.includes('Выйти');
+          }
+        },
+        {
+          name: 'navbar после входа показывает личные разделы',
+          run: function() {
+            state.isAuthenticated = true;
+            const html = navbar();
+            state.isAuthenticated = false;
+            return html.includes('Личный кабинет') && html.includes('Мои документы');
+          }
+        },
+        {
+          name: 'documentsPage содержит ссылку показать еще',
+          run: function() {
+            return documentsPage().includes('Показать еще');
+          }
         }
       ];
 
@@ -1838,17 +2024,25 @@
       });
     }
 
-    /*
-      Навешивание обработчиков на элементы с data-page.
-      При каждом render() все слушатели навешиваются заново на заново созданный DOM.
-      Это допустимо для небольшого приложения.
-      Следующий шаг — event delegation на корневой app.
-    */
     function bindNavigation(app) {
       app.querySelectorAll('[data-page]').forEach(function(el) {
         el.addEventListener('click', function() {
           state.page = el.getAttribute('data-page');
           render();
+        });
+      });
+
+      app.querySelectorAll('[data-action="logout"]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          state.isAuthenticated = false;
+          state.page = 'home';
+          render();
+        });
+      });
+
+      app.querySelectorAll('[data-action="settings"]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          alert('Раздел настроек пока в разработке.');
         });
       });
     }
@@ -1911,22 +2105,13 @@
       if (loginForm) {
         loginForm.addEventListener('submit', function(e) {
           e.preventDefault();
-
-          /*
-            Пока это декоративная авторизация без проверки данных.
-            Для предпросмотра норм, для production — нет.
-          */
+          state.isAuthenticated = true;
           state.page = 'cabinet';
           render();
         });
       }
     }
 
-    /*
-      Главная функция рендера.
-      Полностью пересобирает страницу через innerHTML.
-      Это просто, но дорого при росте UI и легко сбрасывает локальное DOM-состояние.
-    */
     function render() {
       const app = document.getElementById('app');
       const pages = {
@@ -1935,6 +2120,7 @@
         support: supportPage,
         about: aboutPage,
         cabinet: cabinetPage,
+        documents: documentsPage,
         'support-form': supportFormPage
       };
 
@@ -1948,11 +2134,6 @@
     }
 
     render();
-
-    /*
-      Для отладки можно временно раскомментировать:
-      console.table(runTests());
-    */
   </script>
 </body>
 </html>
