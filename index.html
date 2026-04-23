@@ -1073,6 +1073,17 @@
       gap: 8px;
     }
 
+    .sidebar-doc-title {
+      margin: 0;
+      color: #334155;
+      font-size: 16px;
+      line-height: 24px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
     .sidebar-doc-more {
       display: inline-flex;
       width: fit-content;
@@ -1249,6 +1260,12 @@
       { date: '25.03.2026', level: 'Ведомственный', number: 'МН-18/177', title: 'Письмо Минобрнауки России от 25 марта 2026 года №МН-18/177 «О наличии просроченной кредиторской задолженности по состоянию на 01.04.2026»' },
       { date: '20.03.2026', level: 'Ведомственный', number: 'МН-17/165', title: 'Письмо Минобрнауки России от 20 марта 2026 года №МН-17/165 «О предоставлении уточненных плановых показателей»' },
       { date: '18.03.2026', level: 'Федеральный', number: '02-12-11/22014', title: 'Письмо Федерального казначейства от 18 марта 2026 года №02-12-11/22014 «О порядке отражения отдельных операций в отчетности»' }
+    ];
+
+    const sidebarDocuments = [
+      {
+        title: 'О предоставлении информации Руководителям организаций, подведомственных Минобрнауки России'
+      }
     ];
 
     const personalDocuments = [
@@ -1457,8 +1474,12 @@
       return [
         '<section class="card soft">',
           '<div class="sidebar-doc-card">',
-            '<h2 class="section-title">Документы</h2>',
-            '<button class="text-link sidebar-doc-more" type="button" data-page="documents">смотреть документы</button>',
+            '<span class="personal-doc-tag">Новое</span>',
+            '<h2 class="section-title" style="margin-top:8px;">Документы</h2>',
+            sidebarDocuments.map(function(item) {
+              return '<div class="sidebar-doc-title" style="margin-top:6px;">' + escapeHtml(item.title) + '</div>';
+            }).join(''),
+            '<button class="text-link sidebar-doc-more" type="button" style="margin-top:8px;">Показать еще</button>',
           '</div>',
         '</section>'
       ].join('');
@@ -1971,15 +1992,16 @@
         { name: 'supportSidebar до входа показывает регистрацию', run: function() { state.isAuthenticated = false; return supportSidebar(false).includes('Регистрация') && supportSidebar(false).includes('Личный кабинет'); } },
         { name: 'supportSidebar после входа показывает профиль и кнопку выхода', run: function() { state.isAuthenticated = true; const html = supportSidebar(false); state.isAuthenticated = false; return html.includes('Профиль') && html.includes('data-action="settings"') && html.includes('Выйти'); } },
         { name: 'supportSidebar содержит блок документов между авторизацией и поддержкой', run: function() { const html = supportSidebar(false); return html.indexOf('Личный кабинет') < html.indexOf('Документы') && html.indexOf('Документы') < html.indexOf('Служба поддержки'); } },
-        { name: 'renderSidebarDocumentsCard содержит ссылку смотреть документы', run: function() { return renderSidebarDocumentsCard().includes('смотреть документы'); } },
+        { name: 'renderSidebarDocumentsCard содержит ссылку показать еще', run: function() { return renderSidebarDocumentsCard().includes('Показать еще'); } },
         { name: 'renderSidebarDocumentsCard содержит заголовок Документы', run: function() { return renderSidebarDocumentsCard().includes('Документы'); } },
-        { name: 'renderSidebarDocumentsCard не содержит синтаксического мусора от старой версии', run: function() { const html = renderSidebarDocumentsCard(); return !html.includes('sidebar-doc-item') && !html.includes('sidebar-doc-link') && !html.includes("}).join('')"); } },
-        { name: 'renderSidebarDocumentsCard ведет в раздел documents', run: function() { return renderSidebarDocumentsCard().includes('data-page="documents"'); } },
+        { name: 'renderSidebarDocumentsCard содержит тег Новое над текстом', run: function() { const html = renderSidebarDocumentsCard(); return html.includes('Новое') && html.indexOf('Новое') < html.indexOf('О предоставлении информации'); } },
+        { name: 'renderSidebarDocumentsCard не использует sidebar-doc-link', run: function() { return !renderSidebarDocumentsCard().includes('sidebar-doc-link'); } },
         { name: 'navbar после входа показывает личные разделы', run: function() { state.isAuthenticated = true; const html = navbar(); state.isAuthenticated = false; return html.includes('Личный кабинет') && html.includes('Мои документы'); } },
         { name: 'documentsPage содержит ссылку показать еще', run: function() { return documentsPage().includes('Показать еще'); } },
         { name: 'renderLoginCard содержит кнопку регистрации', run: function() { return renderLoginCard().includes('data-action="register"') && renderLoginCard().includes('Регистрация'); } },
         { name: 'renderProfileCard содержит svg иконку настроек', run: function() { return renderProfileCard().includes('aria-label="Настроить профиль"') && renderProfileCard().includes('data-action="settings"') && renderProfileCard().includes('svg'); } },
-        { name: 'profileSettingsIconSvg возвращает валидный svg без переводов строки в JS-строке', run: function() { const svg = profileSettingsIconSvg(); return svg.includes('<svg') && svg.includes('</svg>') && !svg.includes('\n'); } }
+        { name: 'profileSettingsIconSvg возвращает валидный svg без переводов строки в JS-строке', run: function() { const svg = profileSettingsIconSvg(); return svg.includes('<svg') && svg.includes('</svg>') && !svg.includes('\n'); } },
+        { name: 'renderSidebarDocumentsCard не содержит синтаксического мусора от старой версии', run: function() { const html = renderSidebarDocumentsCard(); return !html.includes('sidebar-doc-item') && !html.includes('sidebar-doc-link'); } }
       ];
 
       return tests.map(function(test) {
