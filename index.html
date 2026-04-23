@@ -936,13 +936,14 @@
     .personal-doc-tag {
       display: inline-flex;
       align-items: center;
-      padding: 4px 10px;
+      width: fit-content;
+      padding: 6px 12px;
       border-radius: 999px;
-      background: #eef4ff;
-      color: var(--brand);
+      background: rgba(0, 205, 144, 0.12);
+      color: var(--accent);
       font-size: 12px;
       line-height: 16px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .personal-doc-title {
@@ -1006,6 +1007,47 @@
       gap: 12px;
     }
 
+    .profile-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .profile-settings-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: #64748b;
+      cursor: pointer;
+      padding: 0;
+      flex: 0 0 40px;
+      transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
+    }
+
+    .profile-settings-btn svg {
+      width: 24px;
+      height: 24px;
+      display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .profile-settings-btn:hover {
+      background: #eef3fb;
+      color: var(--brand);
+      box-shadow: 0 0 0 2px rgba(0, 51, 133, 0.15);
+    }
+
     .profile-name {
       color: #0f172a;
       font-size: 16px;
@@ -1024,6 +1066,16 @@
       display: grid;
       gap: 12px;
       margin-top: 4px;
+    }
+
+    .sidebar-doc-card {
+      display: grid;
+      gap: 8px;
+    }
+
+    .sidebar-doc-more {
+      display: inline-flex;
+      width: fit-content;
     }
 
     .footer {
@@ -1270,7 +1322,7 @@
 
       if (title === 'Форумы') {
         return '<svg width="32" height="32" viewBox="0 -960 960 960" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-          '<path d="M880-80 720-240H320q-33 0-56.5-23.5T240-320v-40h440q33 0 56.5-23.5T760-440v-280h40q33 0 56.5 23.5T880-640v560ZM160-473l47-47h393v-280H160v327ZM80-280v-520q0-33 23.5-56.5T160-880h440q33 0 56.5 23.5T680-800v280q0 33-23.5 56.5T600-440H240L80-280Zm80-240v-280 280Z" fill="#475569"/>' +
+          '<path d="M880-80 720-240H320q-33 0-56.5-23.5T240-320v-40h440q33 0 56.5-23.5T760-440v-280h40q33 0 56.5 23.5T880-640v560ZM160-473l47-47h393v-280H160v327ZM80-280v-520q0-33 23.5-56.5T160-880h440q33 0 56.5 23.5T680-800v280q0 33-23.5 56.5T600-440H240L80-280v-520q0-33 23.5-56.5T160-880Z" fill="#475569"/>' +
           '<path d="M160-473l47-47h393v-280H160v327Z" fill="#ffffff" fill-opacity="0.9"/>' +
           '<path d="M880-80 720-240H320q-33 0-56.5-23.5T240-320v-40h440q33 0 56.5-23.5T760-440v-280h40q33 0 56.5 23.5T880-640v560Z" fill="#1E63C6" fill-opacity="0.14"/>' +
           '<path d="M160-880h440q33 0 56.5 23.5T680-800v280q0 33-23.5 56.5T600-440H240L80-280v-520q0-33 23.5-56.5T160-880Z" fill="url(#forumAccent-' + uid + ')" fill-opacity="0.18"/>' +
@@ -1287,6 +1339,13 @@
 
     function fileUploadIconSvg() {
       return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM200-120q-33 0-56.5-23.5T120-200v-120h80v120h560v-120h80v120q0 33-23.5 56.5T760-120H200Z"/></svg>';
+    }
+
+    function profileSettingsIconSvg() {
+      return '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
+        '<path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<path d="M12 15.25A3.25 3.25 0 1 0 12 8.75a3.25 3.25 0 0 0 0 6.5Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '</svg>';
     }
 
     function highlightNewsParagraph(text, newsIndex) {
@@ -1356,15 +1415,15 @@
     function renderProfileCard() {
       return [
         '<section class="card">',
-          '<div class="section-head">',
+          '<div class="profile-title-row">',
             '<h2 class="section-title">Профиль</h2>',
+            '<button class="profile-settings-btn" type="button" data-action="settings" title="Настроить профиль" aria-label="Настроить профиль">' + profileSettingsIconSvg() + '</button>',
           '</div>',
           '<div class="profile-card">',
             '<div class="profile-name">Иванов Василий Федорович</div>',
             '<div class="profile-role">Начальник отдела проектов и программ</div>',
             '<div class="profile-org">Минобрнауки России, Департамент экономической политики</div>',
             '<div class="profile-actions">',
-              '<button class="btn btn-ghost" type="button" data-action="settings">Настройки</button>',
               '<button class="btn btn-secondary" type="button" data-action="logout">Выйти</button>',
             '</div>',
           '</div>',
@@ -1394,10 +1453,22 @@
       ].join('');
     }
 
+    function renderSidebarDocumentsCard() {
+      return [
+        '<section class="card soft">',
+          '<div class="sidebar-doc-card">',
+            '<h2 class="section-title">Документы</h2>',
+            '<button class="text-link sidebar-doc-more" type="button" data-page="documents">смотреть документы</button>',
+          '</div>',
+        '</section>'
+      ].join('');
+    }
+
     function supportSidebar(showGuide) {
       const authBlock = state.isAuthenticated ? renderProfileCard() : renderLoginCard();
       return [
         authBlock,
+        renderSidebarDocumentsCard(),
         '<section class="card support">',
           '<div class="section-head">',
             '<h2 class="section-title">Служба поддержки</h2>',
@@ -1898,10 +1969,17 @@
         { name: 'toolCard использует специальную иконку для тестового инструмента', run: function() { return toolCard({ title: 'УВБА', description: 'Тестирование', accent: '#94A3B8', isTest: true }).includes('testToolAccent-'); } },
         { name: 'toolCard не добавляет бейдж для рабочего инструмента', run: function() { return !toolCard({ title: 'УВБА', description: 'Рабочий режим', accent: '#1E63C6', isTest: false }).includes('Тестовая версия'); } },
         { name: 'supportSidebar до входа показывает регистрацию', run: function() { state.isAuthenticated = false; return supportSidebar(false).includes('Регистрация') && supportSidebar(false).includes('Личный кабинет'); } },
-        { name: 'supportSidebar после входа показывает профиль и кнопку настроек', run: function() { state.isAuthenticated = true; const html = supportSidebar(false); state.isAuthenticated = false; return html.includes('Профиль') && html.includes('Настройки') && html.includes('Выйти'); } },
+        { name: 'supportSidebar после входа показывает профиль и кнопку выхода', run: function() { state.isAuthenticated = true; const html = supportSidebar(false); state.isAuthenticated = false; return html.includes('Профиль') && html.includes('data-action="settings"') && html.includes('Выйти'); } },
+        { name: 'supportSidebar содержит блок документов между авторизацией и поддержкой', run: function() { const html = supportSidebar(false); return html.indexOf('Личный кабинет') < html.indexOf('Документы') && html.indexOf('Документы') < html.indexOf('Служба поддержки'); } },
+        { name: 'renderSidebarDocumentsCard содержит ссылку смотреть документы', run: function() { return renderSidebarDocumentsCard().includes('смотреть документы'); } },
+        { name: 'renderSidebarDocumentsCard содержит заголовок Документы', run: function() { return renderSidebarDocumentsCard().includes('Документы'); } },
+        { name: 'renderSidebarDocumentsCard не содержит синтаксического мусора от старой версии', run: function() { const html = renderSidebarDocumentsCard(); return !html.includes('sidebar-doc-item') && !html.includes('sidebar-doc-link') && !html.includes("}).join('')"); } },
+        { name: 'renderSidebarDocumentsCard ведет в раздел documents', run: function() { return renderSidebarDocumentsCard().includes('data-page="documents"'); } },
         { name: 'navbar после входа показывает личные разделы', run: function() { state.isAuthenticated = true; const html = navbar(); state.isAuthenticated = false; return html.includes('Личный кабинет') && html.includes('Мои документы'); } },
         { name: 'documentsPage содержит ссылку показать еще', run: function() { return documentsPage().includes('Показать еще'); } },
-        { name: 'renderLoginCard содержит кнопку регистрации', run: function() { return renderLoginCard().includes('data-action="register"') && renderLoginCard().includes('Регистрация'); } }
+        { name: 'renderLoginCard содержит кнопку регистрации', run: function() { return renderLoginCard().includes('data-action="register"') && renderLoginCard().includes('Регистрация'); } },
+        { name: 'renderProfileCard содержит svg иконку настроек', run: function() { return renderProfileCard().includes('aria-label="Настроить профиль"') && renderProfileCard().includes('data-action="settings"') && renderProfileCard().includes('svg'); } },
+        { name: 'profileSettingsIconSvg возвращает валидный svg без переводов строки в JS-строке', run: function() { const svg = profileSettingsIconSvg(); return svg.includes('<svg') && svg.includes('</svg>') && !svg.includes('\n'); } }
       ];
 
       return tests.map(function(test) {
