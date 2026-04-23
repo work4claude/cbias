@@ -98,6 +98,7 @@
     .nav-list {
       display: flex;
       flex-wrap: wrap;
+      gap: 2px;
       padding: 0;
       margin: 0;
       list-style: none;
@@ -106,7 +107,6 @@
     .nav-btn {
       appearance: none;
       border: 0;
-      border-right: 1px solid rgba(255,255,255,.12);
       background: transparent;
       color: inherit;
       padding: 16px 20px;
@@ -131,9 +131,9 @@
 
     .nav-separator {
       width: 1px;
-      margin: 12px 6px;
       background: rgba(255,255,255,.25);
       align-self: stretch;
+      margin: 10px 6px;
       list-style: none;
       pointer-events: none;
     }
@@ -1185,7 +1185,7 @@
         width: 100%;
         text-align: left;
         border-right: 0;
-        border-bottom: 1px solid rgba(255,255,255,.12);
+        border-bottom: 1px solid rgba(255,255,255,.10);
       }
 
       .card { padding: 20px; }
@@ -2038,6 +2038,7 @@
         { name: 'navbar после входа показывает личные разделы', run: function() { state.isAuthenticated = true; const html = navbar(); state.isAuthenticated = false; return html.includes('Личный кабинет') && html.includes('Мои документы'); } },
         { name: 'navbar после входа показывает визуальный разделитель', run: function() { state.isAuthenticated = true; const html = navbar(); state.isAuthenticated = false; return html.includes('nav-separator'); } },
         { name: 'navbar после входа подсвечивает личные пункты фоном', run: function() { state.isAuthenticated = true; const html = navbar(); state.isAuthenticated = false; return html.includes('nav-btn personal'); } },
+        { name: 'navbar стили больше не содержат border-right у пунктов меню', run: function() { return !document.documentElement.innerHTML.includes('border-right: 1px solid rgba(255,255,255,.12)'); } },
         { name: 'documentsPage содержит ссылку показать еще', run: function() { return documentsPage().includes('Показать еще'); } },
         { name: 'renderLoginCard содержит кнопку регистрации', run: function() { return renderLoginCard().includes('data-action="register"') && renderLoginCard().includes('Регистрация'); } },
         { name: 'renderProfileCard содержит svg иконку настроек', run: function() { return renderProfileCard().includes('aria-label="Настроить профиль"') && renderProfileCard().includes('data-action="settings"') && renderProfileCard().includes('svg'); } },
