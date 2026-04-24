@@ -67,7 +67,6 @@
     .coat {
       width: 56px;
       height: 56px;
-      border: none;
       background: transparent;
       display: flex;
       align-items: center;
@@ -117,7 +116,6 @@
     .nav-btn.active { background: var(--brand-dark); }
     .nav-btn:hover { background: #1e50a0; }
     .nav-btn.personal { background: rgba(255,255,255,.08); }
-    .nav-btn.personal:hover { background: rgba(255,255,255,.16); }
     .nav-btn.personal.active { background: rgba(255,255,255,.22); }
 
     .nav-separator {
@@ -125,7 +123,6 @@
       background: rgba(255,255,255,.25);
       align-self: stretch;
       margin: 10px 6px;
-      list-style: none;
       pointer-events: none;
     }
 
@@ -174,8 +171,7 @@
 
     .card.priority {
       background: linear-gradient(135deg, #f5f9ff 0%, #ffffff 100%);
-      border: 1px solid #d0e2ff;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      border-color: #d0e2ff;
     }
 
     .card.support {
@@ -262,8 +258,8 @@
       object-fit: contain;
     }
 
-    a.link,
-    .text-link {
+    .text-link,
+    a.link {
       color: var(--brand);
       text-decoration: none;
       font-size: 16px;
@@ -275,9 +271,8 @@
       font-family: inherit;
     }
 
-    a.link:hover,
     .text-link:hover,
-    .advanced-search-link:hover { text-decoration: underline; }
+    a.link:hover { text-decoration: underline; }
 
     .field { display: grid; gap: 8px; }
 
@@ -319,7 +314,8 @@
     .file-upload-btn svg { width: 20px; height: 20px; }
     .file-upload-btn:hover { background: #eef3fb; border-color: #bfd3f3; }
 
-    .search-shell {
+    .search-shell,
+    .docs-search {
       display: grid;
       grid-template-columns: 1fr 56px;
       border-radius: 18px;
@@ -328,28 +324,27 @@
       background: #fff;
     }
 
-    .search-shell .input { border: 0; border-radius: 0; }
+    .search-shell .input,
+    .docs-search input {
+      border: 0;
+      border-radius: 0;
+      padding: 14px 16px;
+      font: inherit;
+      background: transparent;
+    }
 
     .search-btn {
+      border: 0;
       border-left: 1px solid #bfd3f3;
       background: var(--brand);
       color: #fff;
-      font-size: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
     }
 
     .search-btn svg { width: 28px; height: 28px; }
-
-    .row-between {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
 
     .btn {
       border: 0;
@@ -361,6 +356,8 @@
 
     .btn-primary { background: var(--brand); color: #fff; width: 100%; }
     .btn-primary:hover { background: var(--brand-dark); }
+    .btn-secondary { background: var(--brand-soft); color: var(--brand); width: 100%; }
+    .btn-ghost { background: #fff; color: var(--brand); border: 1px solid #bfd3f3; width: 100%; }
 
     .btn-accent {
       background: var(--accent);
@@ -374,8 +371,6 @@
     }
 
     .btn-accent:hover { background: var(--accent-dark); }
-    .btn-secondary { background: var(--brand-soft); color: var(--brand); width: 100%; }
-    .btn-ghost { background: #fff; color: var(--brand); border: 1px solid #bfd3f3; width: 100%; }
 
     .info-box {
       background: rgba(255,255,255,.7);
@@ -390,6 +385,12 @@
       color: #334155;
     }
 
+    .contact-title {
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
     .contact-icon {
       width: 24px;
       height: 24px;
@@ -398,14 +399,6 @@
       opacity: .8;
       margin-top: 4px;
     }
-
-    .contact-title {
-      font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 6px;
-    }
-
-    .contact-lines { display: grid; gap: 2px; }
 
     .tools-grid {
       display: grid;
@@ -432,20 +425,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      color: var(--brand);
+      font-weight: 800;
       overflow: hidden;
     }
 
-    .tool-icon svg {
-      width: 32px;
-      height: 32px;
-      display: block;
-      transform-origin: center;
-    }
-
-    .tool-card[data-tool="УВБА"] .tool-icon svg { transform: scale(0.96); }
-    .tool-card[data-tool="Паспорта работ"] .tool-icon svg { transform: scale(0.94); }
-    .tool-card[data-tool="Реестр"] .tool-icon svg { transform: scale(0.91); }
-    .tool-card[data-tool="Форумы"] .tool-icon svg { transform: scale(0.93); }
+    .tool-icon svg { width: 32px; height: 32px; display: block; }
 
     .tool-title {
       margin: 0 0 8px;
@@ -498,22 +483,6 @@
       margin-top: 12px;
     }
 
-    .ghost-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 14px;
-      border: 1px dashed #bfd3f3;
-      background: #f8fbff;
-      color: var(--brand);
-      text-decoration: none;
-      font-size: 16px;
-      line-height: 24px;
-    }
-
-    .ghost-link:hover { background: #eef3fb; }
-
     .helper-list {
       display: grid;
       gap: 12px;
@@ -557,15 +526,6 @@
       align-items: center;
     }
 
-    .news-search-panel .search-shell {
-      border-radius: 20px;
-      border-color: #b9cdef;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.5);
-    }
-
-    .news-search-panel .input { padding: 15px 16px; font-size: 16px; }
-    .news-search-panel .search-btn { min-width: 56px; display: flex; align-items: center; justify-content: center; }
-
     .news-advanced-btn {
       appearance: none;
       border: 1px solid #b9cdef;
@@ -578,7 +538,6 @@
       cursor: pointer;
     }
 
-    .news-advanced-btn:hover { background: #ffffff; }
     .support-hero { display: grid; gap: 22px; }
 
     .support-hero-copy {
@@ -606,7 +565,6 @@
 
     .support-chip:hover { background: #eef4ff; }
     .required { color: #dc2626; }
-    .auth-note { margin-bottom: 12px; }
     .hidden { display: none !important; }
 
     .login-links {
@@ -644,6 +602,21 @@
       background: linear-gradient(180deg, #f59e0b 0%, #fb923c 100%);
     }
 
+    .alert-list {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .alert-item {
+      padding: 18px 18px 18px 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(251, 146, 60, 0.18);
+      background: rgba(255,255,255,.92);
+    }
+
     .alert-tag {
       display: inline-flex;
       align-items: center;
@@ -659,42 +632,8 @@
       text-transform: uppercase;
     }
 
-    .alert-tag::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      flex: 0 0 8px;
-    }
-
-    .alert-tag.important {
-      background: rgba(245, 158, 11, 0.12);
-      color: #9a3412;
-    }
-
-    .alert-tag.important::before { background: #f59e0b; }
-
-    .alert-tag.critical {
-      background: rgba(239, 68, 68, 0.12);
-      color: #7f1d1d;
-    }
-
-    .alert-tag.critical::before { background: #ef4444; }
-
-    .alert-list {
-      display: grid;
-      gap: 14px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .alert-item {
-      padding: 18px 18px 18px 20px;
-      border-radius: 16px;
-      border: 1px solid rgba(251, 146, 60, 0.18);
-      background: rgba(255,255,255,.92);
-    }
+    .alert-tag.important { background: rgba(245, 158, 11, 0.12); color: #9a3412; }
+    .alert-tag.critical { background: rgba(239, 68, 68, 0.12); color: #7f1d1d; }
 
     .alert-item-title {
       margin: 0 0 8px;
@@ -726,35 +665,9 @@
       font-weight: 700;
     }
 
-    .alert-download:hover { background: #ffedd5; }
-
-    .alert-phones {
-      display: grid;
-      gap: 4px;
-      margin-top: 12px;
-      color: #0f172a;
-      font-weight: 700;
-    }
-
-    .alert-warning {
-      margin-top: 14px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      border: 1px solid #fda4af;
-      background: #fff1f2;
-      color: #9f1239;
-      font-size: 14px;
-      line-height: 22px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .alert-collapsible { display: grid; gap: 10px; }
-
     .alert-toggle {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
       width: fit-content;
       padding: 0;
       border: 0;
@@ -766,42 +679,21 @@
 
     .alert-toggle:hover { text-decoration: underline; }
 
-    .alert-toggle::before {
-      content: "▾";
-      font-size: 14px;
-      line-height: 1;
-      transform-origin: center;
-      transition: transform .2s ease;
+    .alert-warning {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid #fda4af;
+      background: #fff1f2;
+      color: #9f1239;
+      font-size: 12px;
+      line-height: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
     }
-
-    .alert-toggle[aria-expanded="false"]::before { transform: rotate(-90deg); }
-    .alert-collapsible-body.hidden { display: none !important; }
 
     .docs-hero { display: grid; gap: 22px; }
-
-    .docs-toolbar {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 16px;
-      align-items: center;
-    }
-
-    .docs-search {
-      display: grid;
-      grid-template-columns: 1fr 56px;
-      border: 1px solid #cfe0f7;
-      border-radius: 20px;
-      overflow: hidden;
-      background: #fff;
-    }
-
-    .docs-search input {
-      border: 0;
-      padding: 15px 16px;
-      font: inherit;
-      background: transparent;
-    }
-
+    .docs-toolbar { display: grid; gap: 16px; align-items: center; }
     .docs-summary { display: flex; flex-wrap: wrap; gap: 12px; }
 
     .docs-summary-chip {
@@ -848,7 +740,6 @@
     }
 
     .personal-doc-body { display: grid; gap: 6px; min-width: 0; }
-    .personal-doc-top { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
     .personal-doc-tag {
       display: inline-flex;
@@ -911,8 +802,25 @@
       font-weight: 700;
     }
 
-    .personal-doc-download:hover { background: #e3eefc; }
-    .personal-doc-download svg { width: 16px; height: 16px; flex: 0 0 16px; }
+    .personal-doc-download svg {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 20px;
+    }
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: var(--brand-soft);
+      border: 1px solid #cfe0f7;
+      color: var(--brand);
+      text-decoration: none;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 700;
+    }
 
     .profile-card { display: grid; gap: 12px; }
 
@@ -936,41 +844,10 @@
       color: #64748b;
       cursor: pointer;
       padding: 0;
-      flex: 0 0 40px;
-      transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
     }
 
-    .profile-settings-btn svg {
-      width: 24px;
-      height: 24px;
-      display: block;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .profile-settings-btn:hover {
-      background: #eef3fb;
-      color: var(--brand);
-      box-shadow: 0 0 0 2px rgba(0, 51, 133, 0.15);
-    }
-
-    .profile-name {
-      color: #0f172a;
-      font-size: 16px;
-      line-height: 24px;
-      font-weight: 500;
-    }
-
-    .profile-role,
-    .profile-org {
-      color: #64748b;
-      font-size: 15px;
-      line-height: 22px;
-    }
-
+    .profile-name { color: #0f172a; font-size: 16px; line-height: 24px; font-weight: 500; }
+    .profile-role, .profile-org { color: #64748b; font-size: 15px; line-height: 22px; }
     .profile-actions { display: grid; gap: 12px; margin-top: 4px; }
 
     .footer {
@@ -1022,11 +899,8 @@
 
       .brand-right { font-size: 20px; max-width: 100%; }
       .tools-grid { grid-template-columns: 1fr; }
-
       .footer-grid > div:nth-child(2),
-      .footer-grid > div:nth-child(3) {
-        justify-self: start;
-      }
+      .footer-grid > div:nth-child(3) { justify-self: start; }
     }
 
     @media (max-width: 768px) {
@@ -1037,22 +911,13 @@
       .brand-right { display: none; }
       .nav-list { flex-direction: column; }
       .nav-separator { display: none; }
-
-      .nav-btn {
-        width: 100%;
-        text-align: left;
-        border-right: 0;
-        border-bottom: 1px solid rgba(255,255,255,.10);
-      }
-
+      .nav-btn { width: 100%; text-align: left; border-bottom: 1px solid rgba(255,255,255,.10); }
       .card { padding: 20px; }
       .hero-copy { padding: 24px; }
-      .news-search-row { grid-template-columns: 1fr; align-items: stretch; }
+      .news-search-row { grid-template-columns: 1fr; }
       .news-advanced-btn { width: 100%; }
-      .support-hero-links { gap: 12px; }
       .support-chip { width: 100%; white-space: normal; }
       .personal-doc-card { padding: 16px; gap: 14px; }
-      .personal-doc-title { font-size: 15px; line-height: 22px; }
       .personal-doc-actions { justify-items: start; }
       .personal-doc-download { width: 100%; }
       .login-links { flex-direction: column; align-items: flex-start; }
@@ -1071,20 +936,28 @@
       }
     };
 
-    const initialState = {
+    const state = {
       page: 'home',
       isAuthenticated: false,
       faqExpanded: false,
-      docsExpanded: false,
       faqQuery: '',
-      docsQuery: '',
       openFaqAnswers: {},
       openAlerts: {}
     };
 
-    const state = { ...initialState };
-
     const data = {
+      navigation: {
+        general: [
+          ['Главная', 'home'],
+          ['Новости', 'news'],
+          ['Служба поддержки', 'support'],
+          ['О центре', 'about']
+        ],
+        personal: [
+          ['Личный кабинет', 'cabinet'],
+          ['Документы', 'documents']
+        ]
+      },
       newsItems: [
         {
           date: '12.03.2026',
@@ -1109,10 +982,8 @@
           weekday: 'Понедельник',
           paragraphs: [
             'Руководителям организаций, подведомственных Минобрнауки России. Письмо Минобрнауки России от 15 апреля 2026 года № МН-18/198 «О предоставлении информации».',
-            'Согласно постановлению Правительства Российской Федерации от 11 ноября 2023 г. № 1896 «Об утверждении Правил предоставления из федерального бюджета субсидий бюджетным и автономным учреждениям на иные цели» в части расчета коэффициента платной деятельности Департамент экономической политики Минобрнауки России (далее – Департамент) просит предоставить сведения для расчета указанного показателя путем заполнения форм на портале cbias.ru в разделе «Сбор и обработка плановых и отчетных показателей / Сведения для расчета коэффициента платной деятельности / Апрель 2026» в срок до 5 мая 2026 года включительно.',
-            'По вопросам заполнения сведений обращаться в службу поддержки Портала путем заполнения формы обращения и по телефонам 8 (495) 225-14-43, 8 (495) 225-14-47.',
-            'Департамент обращает внимание на необходимость качественного планирования показателей, учитываемых при определении планируемого объема доходов от платной деятельности.',
-            'Учитывая изложенное, Департамент просит обеспечить предоставление достоверных данных и обращает внимание, что руководители организаций несут персональную ответственность за предоставленные сведения.'
+            'Согласно постановлению Правительства Российской Федерации от 11 ноября 2023 г. № 1896 «Об утверждении Правил предоставления из федерального бюджета субсидий бюджетным и автономным учреждениям на иные цели» в части расчета коэффициента платной деятельности Департамент экономической политики Минобрнауки России просит предоставить сведения для расчета указанного показателя путем заполнения форм на портале cbias.ru.',
+            'По вопросам заполнения сведений обращаться в службу поддержки Портала путем заполнения формы обращения и по телефонам 8 (495) 225-14-43, 8 (495) 225-14-47.'
           ]
         }
       ],
@@ -1142,17 +1013,17 @@
           answer: 'Да, тестовый контур предназначен для проверки сценариев ввода и отладки данных без влияния на рабочий контур.'
         }
       ],
-      documents: [
+      commonDocuments: [
         { date: '26.03.2026', level: 'Федеральный', number: '21-08-06/24891', title: 'Письмо Минфина России от 26 марта 2026 года №21-08-06/24891' },
         { date: '25.03.2026', level: 'Ведомственный', number: 'МН-18/177', title: 'Письмо Минобрнауки России от 25 марта 2026 года №МН-18/177 «О наличии просроченной кредиторской задолженности по состоянию на 01.04.2026»' },
         { date: '20.03.2026', level: 'Ведомственный', number: 'МН-17/165', title: 'Письмо Минобрнауки России от 20 марта 2026 года №МН-17/165 «О предоставлении уточненных плановых показателей»' },
         { date: '18.03.2026', level: 'Федеральный', number: '02-12-11/22014', title: 'Письмо Федерального казначейства от 18 марта 2026 года №02-12-11/22014 «О порядке отражения отдельных операций в отчетности»' }
       ],
-      personalDocuments: [
+      userDocuments: [
         { date: '28.05.2025', time: '21:10', title: 'Протокол совещания по вопросу реализации пилотного проекта по введению новых систем оплаты труда работников образовательных организаций высшего образования от 7 мая 2025 года № 18-пр/17', filename: '2025_05_07_Протокол_совещ._НСОТ_18_пр_17.pdf', size: '393,57 КБ', tag: 'Протокол' },
         { date: '10.03.2025', time: '10:51', title: 'Письмо Минобрнауки России от 6 марта 2025 года № МН-18/36 о предоставлении бухгалтерской отчетности, форм ЗП-образование, ЗП-наука за 2023, 2024 гг', filename: '2025_03_06_МН_18_36_НСОТ_бухотч.pdf', size: '866,59 КБ', tag: 'Письмо' },
-        { date: '18.12.2024', time: '19:18', title: 'Презентация с совещания 17 декабря 2024 года (вузы) под председательством Министра науки и высшего образования Российской Федерации В.Н. Фалькова по вопросу «О предварительных итогах 2024 года и планах на 2025 год»', filename: '2024_12_17_Презентация_с_совещания_с_Министром_вузы.pdf', size: '15943,29 КБ', tag: 'Презентация' },
-        { date: '17.09.2024', time: '10:44', title: 'Письмо Минобрнауки России от 16 сентября 2024 года № МН-18/1478-АО «О запросе информации» о нагрузке и нормах труда работников, работающих на условиях полной занятости, по профессиональным-квалификационным группам (далее — ПКГ) должностей работников высшего и дополнительного профессионального образования (в части профессорско-преподавательского состава) и работников сферы научных исследований и разработок (в части научных сотрудников)', filename: '2024_09_16_МН_18_1478_АО_Нагрузка_ППС_и_НС.pdf', size: '573,12 КБ', tag: 'Письмо' },
+        { date: '18.12.2024', time: '19:18', title: 'Презентация с совещания 17 декабря 2024 года по вопросу «О предварительных итогах 2024 года и планах на 2025 год»', filename: '2024_12_17_Презентация_с_совещания_с_Министром_вузы.pdf', size: '15943,29 КБ', tag: 'Презентация' },
+        { date: '17.09.2024', time: '10:44', title: 'Письмо Минобрнауки России от 16 сентября 2024 года № МН-18/1478-АО «О запросе информации»', filename: '2024_09_16_МН_18_1478_АО_Нагрузка_ППС_и_НС.pdf', size: '573,12 КБ', tag: 'Письмо' },
         { date: '13.12.2023', time: '21:43', title: 'Письмо Минобрнауки России от 13.12.2023 № 18/2374-АО «Об обеспечении участия в независимой оценке компетенций»', filename: '2023_12_13_МН_18_2374_АО_НОК_не_прошедшие.pdf', size: '694,15 КБ', tag: 'Письмо' }
       ],
       workingTools: [
@@ -1171,7 +1042,7 @@
           level: 'important',
           label: 'Важно',
           title: 'Целевые ориентиры по оплате труда на 1 квартал 2026 года',
-          text: 'Направляем целевые ориентиры для оценки показателей оплаты труда профессорско-преподавательского состава и научных сотрудников, установленные Указом Президента Российской Федерации от 7 мая 2012 г. № 597 «О мероприятиях по реализации государственной социальной политики», на 1 квартал 2026 года.',
+          text: 'Направляем целевые ориентиры для оценки показателей оплаты труда профессорско-преподавательского состава и научных сотрудников на 1 квартал 2026 года.',
           downloadText: 'Скачать'
         },
         {
@@ -1179,30 +1050,21 @@
           level: 'critical',
           label: 'Очень важно',
           title: 'Информация по форме «Дефицит средств»',
-          text: 'Уважаемые коллеги! Сведения, представленные учреждениями после завершения ввода данных в форме «Дефицит средств» оперативно принимаются в работу для анализа. Заключение по результатам оценки финансового состояния будет направлено учреждению официальным письмом через систему СЭД.',
+          text: 'Сведения, представленные учреждениями после завершения ввода данных в форме «Дефицит средств», оперативно принимаются в работу для анализа.',
           detailsIntro: 'По всем вопросам просим обращаться к кураторам по телефонам:',
           phones: ['+7 926 573-80-77', '+7 926 586-59-50', '+7 926 580-84-75', '+7 926 583-42-89'],
-          warning: 'НЕОБХОДИМО ОБЕСПЕЧИТЬ ДОСТИЖЕНИЕ В 1 КВАРТАЛЕ 2026 ГОДА ЗАРАБОТНОЙ ПЛАТЫ ПРОФЕССОРСКО-ПРЕПОДАВАТЕЛЬСКОГО СОСТАВА И НАУЧНЫХ СОТРУДНИКОВ НЕ НИЖЕ 200% УКАЗАННЫХ ЦЕЛЕВЫХ ОРИЕНТИРОВ.'
+          warning: 'Необходимо обеспечить достижение в 1 квартале 2026 года заработной платы профессорско-преподавательского состава и научных сотрудников не ниже 200% указанных целевых ориентиров.'
         }
-      ],
-      navigation: {
-        general: [
-          ['Главная', 'home'],
-          ['Новости', 'news'],
-          ['Служба поддержки', 'support'],
-          ['О центре', 'about']
-        ],
-        personal: [
-          ['Личный кабинет', 'cabinet'],
-          ['Документы', 'documents']
-        ]
-      }
+      ]
     };
 
-    const SELECTORS = {
-      faqSearch: '#faq-search',
-      docsSearch: '#docs-search',
-      loginForm: '#support-login-form'
+    const Icons = {
+      search: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M784-120 532-372q-30 26-69 41t-83 15q-109 0-184.5-75.5T120-576q0-109 75.5-184.5T380-836q109 0 184.5 75.5T640-576q0 44-15 83t-41 69l252 252-52 52ZM380-416q67 0 113.5-46.5T540-576q0-67-46.5-113.5T380-736q-67 0-113.5 46.5T220-576q0 67 46.5 113.5T380-416Z"/></svg>',
+      upload: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM200-120q-33 0-56.5-23.5T120-200v-120h80v120h560v-120h80v120q0 33-23.5 56.5T760-120H200Z"/></svg>',
+      support: '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 -960 960 960" fill="currentColor" style="flex:0 0 28px;"><path d="M80-80v-720q0-33 23.5-56.5T160-880h404q-4 20-4 40t4 40H160v525l46-45h594v-324q23-5 43-13.5t37-22.5v360q0 33-23.5 56.5T800-240H240L80-80Zm80-720v480-480Zm515 45q-35-35-35-85t35-85q35-35 85-35t85 35q35 35 35 85t-35 85q-35 35-85 35t-85-35Z"/></svg>',
+      download: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM200-120q-33 0-56.5-23.5T120-200v-120h80v120h560v-120h80v120q0 33-23.5 56.5T760-120H200Z"/></svg>',
+      phone: '<svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.37 1.78.72 2.62a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.46-1.24a2 2 0 0 1 2.11-.45c.84.35 1.72.6 2.62.72A2 2 0 0 1 22 16.92z"/></svg>',
+      settings: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 15.25A3.25 3.25 0 1 0 12 8.75a3.25 3.25 0 0 0 0 6.5Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     };
 
     function escapeHtml(value) {
@@ -1218,76 +1080,10 @@
       return parts.filter(Boolean).join('');
     }
 
-    function makeSafeId(value) {
-      return String(value)
-        .toLowerCase()
-        .replace(/[^a-zа-я0-9]+/gi, '-')
-        .replace(/^-+|-+$/g, '') || 'item';
+    function sectionHead(title, subtitle = '') {
+      const subtitleHtml = subtitle ? `<div class="section-subtitle">${escapeHtml(subtitle)}</div>` : '';
+      return `<div class="section-head"><h2 class="section-title">${escapeHtml(title)}</h2>${subtitleHtml}</div>`;
     }
-
-    function withParagraphs(list, mapper) {
-      return list.map(mapper).join('');
-    }
-
-    function toggleMapValue(map, key) {
-      map[key] = !map[key];
-    }
-
-    function limitIfNeeded(items, isExpanded, limit) {
-      return isExpanded ? items : items.slice(0, limit);
-    }
-
-    function filterItems(items, query, fields, options = {}) {
-      const normalizedQuery = query.trim().toLowerCase();
-      let result = items.filter((item) => {
-        if (!normalizedQuery) return true;
-        return fields(item).join(' ').toLowerCase().includes(normalizedQuery);
-      });
-
-      if (options.sorter) result = [...result].sort(options.sorter);
-      return result;
-    }
-
-    const Icons = {
-      search() {
-        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M784-120 532-372q-30 26-69 41t-83 15q-109 0-184.5-75.5T120-576q0-109 75.5-184.5T380-836q109 0 184.5 75.5T640-576q0 44-15 83t-41 69l252 252-52 52ZM380-416q67 0 113.5-46.5T540-576q0-67-46.5-113.5T380-736q-67 0-113.5 46.5T220-576q0 67 46.5 113.5T380-416Z"/></svg>';
-      },
-      upload() {
-        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM200-120q-33 0-56.5-23.5T120-200v-120h80v120h560v-120h80v120q0 33-23.5 56.5T760-120H200Z"/></svg>';
-      },
-      profileSettings() {
-        return '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 15.25A3.25 3.25 0 1 0 12 8.75a3.25 3.25 0 0 0 0 6.5Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-      },
-      supportMail() {
-        return '<svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>';
-      },
-      supportPhone() {
-        return '<svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.37 1.78.72 2.62a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.46-1.24a2 2 0 0 1 2.11-.45c.84.35 1.72.6 2.62.72A2 2 0 0 1 22 16.92z"/></svg>';
-      },
-      writeAppeal() {
-        return '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 -960 960 960" fill="currentColor" style="flex:0 0 28px;"><path d="M80-80v-720q0-33 23.5-56.5T160-880h404q-4 20-4 40t4 40H160v525l46-45h594v-324q23-5 43-13.5t37-22.5v360q0 33-23.5 56.5T800-240H240L80-80Zm80-720v480-480Zm515 45q-35-35-35-85t35-85q35-35 85-35t85 35q35 35 35 85t-35 85q-35 35-85 35t-85-35Z"/></svg>';
-      },
-      download() {
-        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM200-120q-33 0-56.5-23.5T120-200v-120h80v120h560v-120h80v120q0 33-23.5 56.5T760-120H200Z"/></svg>';
-      },
-      tool(title, color, isTest) {
-        const safeColor = escapeHtml(color);
-        const uid = makeSafeId(title + '-' + (isTest ? 'test' : 'prod'));
-
-        if (isTest) {
-          return '<svg width="32" height="32" viewBox="0 -960 960 960" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M739-83.5q-7-2.5-13-8.5L522-296q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l85-85q6-6 13-8.5t15-2.5q8 0 15 2.5t13 8.5l204 204q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13l-85 85q-6 6-13 8.5T754-81q-8 0-15-2.5Zm-549.5.5q-7.5-3-13.5-9l-84-84q-6-6-9-13.5T80-205q0-8 3-15t9-13l212-212h85l34-34-165-165h-57L80-765l113-113 121 121v57l165 165 116-116-43-43 56-56H495l-28-28 142-142 28 28v113l56-56 142 142q17 17 26 38.5t9 45.5q0 24-9 46t-26 39l-85-85-56 56-42-42-207 207v84L233-92q-6 6-13 9t-15 3q-8 0-15.5-3Z" fill="#5B6F95"/><path d="M739-83.5q-7-2.5-13-8.5L522-296q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l85-85q6-6 13-8.5t15-2.5q8 0 15 2.5t13 8.5l204 204q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13l-85 85q-6 6-13 8.5T754-81q-8 0-15-2.5Zm-549.5.5q-7.5-3-13.5-9l-84-84q-6-6-9-13.5T80-205q0-8 3-15t9-13l212-212h85l34-34-165-165h-57L80-765l113-113 121 121v57l165 165 116-116-43-43 56-56H495l-28-28 142-142 28 28v113l56-56 142 142q17 17 26 38.5t9 45.5q0 24-9 46t-26 39l-85-85-56 56-42-42-207 207v84L233-92q-6 6-13 9t-15 3q-8 0-15.5-3Z" fill="url(#testToolAccent-' + uid + ')" fill-opacity="0.22"/><defs><linearGradient id="testToolAccent-' + uid + '" x1="80" y1="-880" x2="878" y2="-80" gradientUnits="userSpaceOnUse"><stop stop-color="#EEF3FB"/><stop offset="1" stop-color="#003385"/></linearGradient></defs></svg>';
-        }
-
-        const iconMap = {
-          'УВБА': '<svg width="32" height="32" viewBox="0 -960 960 960" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80ZM120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z" fill="#1E63C6"/><path d="M120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z" fill="#00CD90" fill-opacity="0.22"/><path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80Z" fill="url(#uvbaAccent-' + uid + ')" fill-opacity="0.18"/><defs><linearGradient id="uvbaAccent-' + uid + '" x1="120" y1="-840" x2="840" y2="-120" gradientUnits="userSpaceOnUse"><stop stop-color="#EEF3FB"/><stop offset="1" stop-color="#003385"/></linearGradient></defs></svg>',
-          'Паспорта работ': '<svg width="32" height="32" viewBox="0 -960 960 960" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M400-400h160v-80H400v80Zm0-120h320v-80H400v80Zm0-120h320v-80H400v80Zm-80 400q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z" fill="#00A67D"/><path d="M400-400h160v-80H400v80Zm0-120h320v-80H400v80Zm0-120h320v-80H400v80Z" fill="#ffffff" fill-opacity="0.9"/><path d="M320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880Z" fill="url(#passportAccent-' + uid + ')" fill-opacity="0.18"/><defs><linearGradient id="passportAccent-' + uid + '" x1="240" y1="-880" x2="880" y2="-240" gradientUnits="userSpaceOnUse"><stop stop-color="#EEF3FB"/><stop offset="1" stop-color="#003385"/></linearGradient></defs></svg>',
-          'Реестр': '<svg width="32" height="32" viewBox="0 -960 960 960" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M348.5-291.5Q360-303 360-320t-11.5-28.5Q337-360 320-360t-28.5 11.5Q280-337 280-320t11.5 28.5Q303-280 320-280t28.5-11.5Zm0-160Q360-463 360-480t-11.5-28.5Q337-520 320-520t-28.5 11.5Q280-497 280-480t11.5 28.5Q303-440 320-440t28.5-11.5Zm0-160Q360-623 360-640t-11.5-28.5Q337-680 320-680t-28.5 11.5Q280-657 280-640t11.5 28.5Q303-600 320-600t28.5-11.5ZM440-280h240v-80H440v80Zm0-160h240v-80H440v80Zm0-160h240v-80H440v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z" fill="#1E63C6"/><path d="M348.5-291.5Q360-303 360-320t-11.5-28.5Q337-360 320-360t-28.5 11.5Q280-337 280-320t11.5 28.5Q303-280 320-280t28.5-11.5Zm0-160Q360-463 360-480t-11.5-28.5Q337-520 320-520t-28.5 11.5Q280-497 280-480t11.5 28.5Q303-440 320-440t28.5-11.5Zm0-160Q360-623 360-640t-11.5-28.5Q337-680 320-680t-28.5 11.5Q280-657 280-640t11.5 28.5Q303-600 320-600t28.5-11.5Z" fill="#00CD90" fill-opacity="0.28"/><path d="M440-280h240v-80H440v80Zm0-160h240v-80H440v80Zm0-160h240v-80H440v80Z" fill="#ffffff" fill-opacity="0.92"/><path d="M200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840Z" fill="url(#registryAccent-' + uid + ')" fill-opacity="0.18"/><defs><linearGradient id="registryAccent-' + uid + '" x1="120" y1="-840" x2="840" y2="-120" gradientUnits="userSpaceOnUse"><stop stop-color="#EEF3FB"/><stop offset="1" stop-color="#003385"/></linearGradient></defs></svg>',
-          'Форумы': '<svg width="32" height="32" viewBox="0 -960 960 960" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M880-80 720-240H320q-33 0-56.5-23.5T240-320v-40h440q33 0 56.5-23.5T760-440v-280h40q33 0 56.5 23.5T880-640v560ZM160-473l47-47h393v-280H160v327ZM80-280v-520q0-33 23.5-56.5T160-880h440q33 0 56.5 23.5T680-800v280q0 33-23.5 56.5T600-440H240L80-280v-520q0-33 23.5-56.5T160-880Z" fill="#475569"/><path d="M160-473l47-47h393v-280H160v327Z" fill="#ffffff" fill-opacity="0.9"/><path d="M880-80 720-240H320q-33 0-56.5-23.5T240-320v-40h440q33 0 56.5-23.5T760-440v-280h40q33 0 56.5 23.5T880-640v560Z" fill="#1E63C6" fill-opacity="0.14"/><path d="M160-880h440q33 0 56.5 23.5T680-800v280q0 33-23.5 56.5T600-440H240L80-280v-520q0-33 23.5-56.5T160-880Z" fill="url(#forumAccent-' + uid + ')" fill-opacity="0.18"/><defs><linearGradient id="forumAccent-' + uid + '" x1="80" y1="-880" x2="880" y2="-80" gradientUnits="userSpaceOnUse"><stop stop-color="#EEF3FB"/><stop offset="1" stop-color="#003385"/></linearGradient></defs></svg>'
-        };
-
-        return iconMap[title] || '<svg width="32" height="32" viewBox="0 0 24 24" fill="' + safeColor + '"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><circle cx="9" cy="11" r="1" fill="#ffffff"/><circle cx="13" cy="11" r="1" fill="#ffffff"/><circle cx="17" cy="11" r="1" fill="#ffffff"/></svg>';
-      }
-    };
 
     function buttonLink(text, attrs = {}) {
       const attributes = Object.entries({ type: 'button', class: 'text-link', ...attrs })
@@ -1296,41 +1092,21 @@
       return `<button ${attributes}>${escapeHtml(text)}</button>`;
     }
 
-    function sectionHead(title, subtitle = '', extra = '') {
-      return `<div class="section-head"><h2 class="section-title">${escapeHtml(title)}</h2>${subtitle ? `<div class="section-subtitle">${escapeHtml(subtitle)}</div>` : extra}</div>`;
-    }
-
     function renderMetaRow(parts) {
       return `<div class="meta-row">${parts.map((part) => `<span>${escapeHtml(part)}</span>`).join('')}</div>`;
     }
 
-    function renderSearchShell({ id = '', value = '', placeholder, ariaLabel }) {
-      return `<div class="search-shell"><input class="input" ${id ? `id="${escapeHtml(id)}"` : ''} value="${escapeHtml(value)}" placeholder="${escapeHtml(placeholder)}" aria-label="${escapeHtml(ariaLabel || placeholder)}" /><button class="search-btn" type="button" aria-label="${escapeHtml(ariaLabel || 'Поиск')}">${Icons.search()}</button></div>`;
+    function renderSearchShell({ id = '', value = '', placeholder = 'Поиск', ariaLabel = 'Поиск' } = {}) {
+      const idAttr = id ? `id="${escapeHtml(id)}"` : '';
+      return `<div class="search-shell"><input class="input" ${idAttr} value="${escapeHtml(value)}" placeholder="${escapeHtml(placeholder)}" aria-label="${escapeHtml(ariaLabel)}"><button class="search-btn" type="button" aria-label="${escapeHtml(ariaLabel)}">${Icons.search}</button></div>`;
     }
 
-    function renderInfoCard({ icon, title, lines }) {
-      return `<div class="info-box body-sm"><div class="contact-item">${icon}<div><div class="contact-title">${escapeHtml(title)}</div><div class="contact-lines">${lines.map((line) => `<div>${escapeHtml(line)}</div>`).join('')}</div></div></div></div>`;
+    function renderInfoCard(title, lines) {
+      return `<div class="info-box body-sm"><div class="contact-item">${Icons.phone}<div><div class="contact-title">${escapeHtml(title)}</div><div>${lines.map((line) => `<div>${escapeHtml(line)}</div>`).join('')}</div></div></div></div>`;
     }
 
     function renderPasswordField() {
-      return '<div class="field" style="position:relative;"><label class="label">Пароль</label><input class="input" type="password" placeholder="Введите пароль" style="padding-right:44px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; right:14px; top:40px; width:20px; height:20px; color:#94a3b8; pointer-events:none;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>';
-    }
-
-    function renderProfileCard() {
-      return joinHtml([
-        '<section class="card">',
-          '<div class="profile-title-row">',
-            '<h2 class="section-title">Профиль</h2>',
-            `<button class="profile-settings-btn" type="button" data-action="settings" title="Настроить профиль" aria-label="Настроить профиль">${Icons.profileSettings()}</button>`,
-          '</div>',
-          '<div class="profile-card">',
-            '<div class="profile-name">Иванов Василий Федорович</div>',
-            '<div class="profile-role">Начальник отдела проектов и программ</div>',
-            '<div class="profile-org">Минобрнауки России, Департамент экономической политики</div>',
-            '<div class="profile-actions"><button class="btn btn-secondary" type="button" data-action="logout">Выйти</button></div>',
-          '</div>',
-        '</section>'
-      ]);
+      return '<div class="field"><label class="label">Пароль</label><input class="input" type="password" placeholder="Введите пароль"></div>';
     }
 
     function renderLoginCard() {
@@ -1350,29 +1126,43 @@
       ]);
     }
 
-    function renderSupportSidebar({ showGuide = false } = {}) {
+    function renderProfileCard() {
+      return joinHtml([
+        '<section class="card">',
+          '<div class="profile-title-row">',
+            '<h2 class="section-title">Профиль</h2>',
+            `<button class="profile-settings-btn" type="button" data-action="settings" title="Настроить профиль" aria-label="Настроить профиль">${Icons.settings}</button>`,
+          '</div>',
+          '<div class="profile-card">',
+            '<div class="profile-name">Иванов Василий Федорович</div>',
+            '<div class="profile-role">Начальник отдела проектов и программ</div>',
+            '<div class="profile-org">Минобрнауки России, Департамент экономической политики</div>',
+            '<div class="profile-actions"><button class="btn btn-secondary" type="button" data-action="logout">Выйти</button></div>',
+          '</div>',
+        '</section>'
+      ]);
+    }
+
+    function renderSupportSidebar() {
       return joinHtml([
         state.isAuthenticated ? renderProfileCard() : renderLoginCard(),
         '<section class="card support">',
           '<div class="section-head"><h2 class="section-title">Служба поддержки</h2></div>',
           '<div class="stack" style="gap:12px;">',
-            `<button class="btn btn-accent" type="button" data-page="support-form">${Icons.writeAppeal()}Написать обращение</button>`,
-            config.showEmail ? renderInfoCard({ icon: Icons.supportMail(), title: 'Электронная почта', lines: ['support@cbias.ru'] }) : '',
-            renderInfoCard({ icon: Icons.supportPhone(), title: 'Многоканальные телефоны', lines: ['(495) 225-14-43', '(495) 225-14-47'] }),
+            `<button class="btn btn-accent" type="button" data-page="support-form">${Icons.support}Написать обращение</button>`,
+            renderInfoCard('Многоканальные телефоны', ['(495) 225-14-43', '(495) 225-14-47']),
           '</div>',
-        '</section>',
-        showGuide ? '<section class="card"><div class="section-head"><h2 class="section-title">Руководство пользователя</h2></div><div class="body-sm" style="margin-bottom:16px;">Скачайте руководство пользователя для самостоятельной работы с разделами портала и основными сценариями ввода данных.</div><a href="#" class="ghost-link">Скачать руководство пользователя</a></section>' : ''
+        '</section>'
       ]);
     }
 
     function renderHeader() {
-      return `<header class="header"><div class="container header-inner"><div class="brand-left"><div class="brand-logo">ЦОИАС</div><div class="coat"><img src="${escapeHtml(config.assets.coat)}" alt="Герб" style="width:100%; height:100%; object-fit:contain;"/></div><div class="ministry">МИНОБРНАУКИ<br>РОССИИ</div></div><div class="brand-right"><div>Портал информационного взаимодействия с организациями</div><div>и учреждениями, участниками бюджетного процесса</div></div></div></header>`;
+      return `<header class="header"><div class="container header-inner"><div class="brand-left"><div class="brand-logo">ЦОИАС</div><div class="coat"><img src="${escapeHtml(config.assets.coat)}" alt="Герб" style="width:100%; height:100%; object-fit:contain;"></div><div class="ministry">МИНОБРНАУКИ<br>РОССИИ</div></div><div class="brand-right"><div>Портал информационного взаимодействия с организациями</div><div>и учреждениями, участниками бюджетного процесса</div></div></div></header>`;
     }
 
     function renderNavbar() {
       const personalItems = state.isAuthenticated ? data.navigation.personal : [];
       const renderNavButton = ([title, page], isPersonal = false) => `<li><button class="nav-btn ${isPersonal ? 'personal ' : ''}${state.page === page ? 'active' : ''}" data-page="${escapeHtml(page)}" type="button">${escapeHtml(title)}</button></li>`;
-
       return joinHtml([
         '<nav class="nav"><div class="container"><ul class="nav-list">',
         data.navigation.general.map((item) => renderNavButton(item)).join(''),
@@ -1394,7 +1184,7 @@
             state.isAuthenticated ? buttonLink('Документы', { 'data-page': 'documents' }) : '',
             buttonLink('О центре', { 'data-page': 'about' }),
           '</div>',
-          `<div><div class="caption" style="font-weight:700;color:#334155;margin-bottom:8px;">Контакты</div><div class="body-sm">(495) 225-14-43</div><div class="body-sm">(495) 225-14-47</div>${config.showEmail ? '<div class="body-sm" style="margin-top:8px;">support@cbias.ru</div>' : ''}</div>`,
+          '<div><div class="caption" style="font-weight:700;color:#334155;margin-bottom:8px;">Контакты</div><div class="body-sm">(495) 225-14-43</div><div class="body-sm">(495) 225-14-47</div></div>',
         '</div></footer>'
       ]);
     }
@@ -1407,12 +1197,69 @@
       return result;
     }
 
+    function iconForTool(title, isTest) {
+      const safeId = String(title + '-' + (isTest ? 'test' : 'prod'))
+        .toLowerCase()
+        .replace(/[^a-zа-я0-9]+/gi, '-')
+        .replace(/^-+|-+$/g, '') || 'tool';
+
+      if (isTest) {
+        return '<svg width="32" height="32" viewBox="0 -960 960 960" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+          '<path d="M739-83.5q-7-2.5-13-8.5L522-296q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l85-85q6-6 13-8.5t15-2.5q8 0 15 2.5t13 8.5l204 204q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13l-85 85q-6 6-13 8.5T754-81q-8 0-15-2.5Zm-549.5.5q-7.5-3-13.5-9l-84-84q-6-6-9-13.5T80-205q0-8 3-15t9-13l212-212h85l34-34-165-165h-57L80-765l113-113 121 121v57l165 165 116-116-43-43 56-56H495l-28-28 142-142 28 28v113l56-56 142 142q17 17 26 38.5t9 45.5q0 24-9 46t-26 39l-85-85-56 56-42-42-207 207v84L233-92q-6 6-13 9t-15 3q-8 0-15.5-3Z" fill="#5B6F95"/>' +
+          '<path d="M739-83.5q-7-2.5-13-8.5L522-296q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l85-85q6-6 13-8.5t15-2.5q8 0 15 2.5t13 8.5l204 204q6 6 8.5 13t2.5 15q0 8-2.5 15t-8.5 13l-85 85q-6 6-13 8.5T754-81q-8 0-15-2.5Zm-549.5.5q-7.5-3-13.5-9l-84-84q-6-6-9-13.5T80-205q0-8 3-15t9-13l212-212h85l34-34-165-165h-57L80-765l113-113 121 121v57l165 165 116-116-43-43 56-56H495l-28-28 142-142 28 28v113l56-56 142 142q17 17 26 38.5t9 45.5q0 24-9 46t-26 39l-85-85-56 56-42-42-207 207v84L233-92q-6 6-13 9t-15 3q-8 0-15.5-3Z" fill="url(#testToolAccent-' + safeId + ')" fill-opacity="0.22"/>' +
+          '<defs><linearGradient id="testToolAccent-' + safeId + '" x1="80" y1="-880" x2="878" y2="-80" gradientUnits="userSpaceOnUse"><stop stop-color="#EEF3FB"/><stop offset="1" stop-color="#003385"/></linearGradient></defs>' +
+        '</svg>';
+      }
+
+      if (title === 'УВБА') {
+        return '<svg width="32" height="32" viewBox="0 -960 960 960" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+          '<path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80ZM120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z" fill="#1E63C6"/>' +
+          '<path d="M120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z" fill="#00CD90" fill-opacity="0.22"/>' +
+          '<path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80Z" fill="url(#uvbaAccent-' + safeId + ')" fill-opacity="0.18"/>' +
+          '<defs><linearGradient id="uvbaAccent-' + safeId + '" x1="120" y1="-840" x2="840" y2="-120" gradientUnits="userSpaceOnUse"><stop stop-color="#EEF3FB"/><stop offset="1" stop-color="#003385"/></linearGradient></defs>' +
+        '</svg>';
+      }
+
+      if (title === 'Паспорта работ') {
+        return '<svg width="32" height="32" viewBox="0 -960 960 960" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+          '<path d="M400-400h160v-80H400v80Zm0-120h320v-80H400v80Zm0-120h320v-80H400v80Zm-80 400q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z" fill="#00A67D"/>' +
+          '<path d="M400-400h160v-80H400v80Zm0-120h320v-80H400v80Zm0-120h320v-80H400v80Z" fill="#ffffff" fill-opacity="0.9"/>' +
+          '<path d="M320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880Z" fill="url(#passportAccent-' + safeId + ')" fill-opacity="0.18"/>' +
+          '<defs><linearGradient id="passportAccent-' + safeId + '" x1="240" y1="-880" x2="880" y2="-240" gradientUnits="userSpaceOnUse"><stop stop-color="#EEF3FB"/><stop offset="1" stop-color="#003385"/></linearGradient></defs>' +
+        '</svg>';
+      }
+
+      if (title === 'Реестр') {
+        return '<svg width="32" height="32" viewBox="0 -960 960 960" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+          '<path d="M348.5-291.5Q360-303 360-320t-11.5-28.5Q337-360 320-360t-28.5 11.5Q280-337 280-320t11.5 28.5Q303-280 320-280t28.5-11.5Zm0-160Q360-463 360-480t-11.5-28.5Q337-520 320-520t-28.5 11.5Q280-497 280-480t11.5 28.5Q303-440 320-440t28.5-11.5Zm0-160Q360-623 360-640t-11.5-28.5Q337-680 320-680t-28.5 11.5Q280-657 280-640t11.5 28.5Q303-600 320-600t28.5-11.5ZM440-280h240v-80H440v80Zm0-160h240v-80H440v80Zm0-160h240v-80H440v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z" fill="#1E63C6"/>' +
+          '<path d="M348.5-291.5Q360-303 360-320t-11.5-28.5Q337-360 320-360t-28.5 11.5Q280-337 280-320t11.5 28.5Q303-280 320-280t28.5-11.5Zm0-160Q360-463 360-480t-11.5-28.5Q337-520 320-520t-28.5 11.5Q280-497 280-480t11.5 28.5Q303-440 320-440t28.5-11.5Zm0-160Q360-623 360-640t-11.5-28.5Q337-680 320-680t-28.5 11.5Q280-657 280-640t11.5 28.5Q303-600 320-600t28.5-11.5Z" fill="#00CD90" fill-opacity="0.28"/>' +
+          '<path d="M440-280h240v-80H440v80Zm0-160h240v-80H440v80Zm0-160h240v-80H440v80Z" fill="#ffffff" fill-opacity="0.92"/>' +
+          '<path d="M200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840Z" fill="url(#registryAccent-' + safeId + ')" fill-opacity="0.18"/>' +
+          '<defs><linearGradient id="registryAccent-' + safeId + '" x1="120" y1="-840" x2="840" y2="-120" gradientUnits="userSpaceOnUse"><stop stop-color="#EEF3FB"/><stop offset="1" stop-color="#003385"/></linearGradient></defs>' +
+        '</svg>';
+      }
+
+      if (title === 'Форумы') {
+        return '<svg width="32" height="32" viewBox="0 -960 960 960" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+          '<path d="M880-80 720-240H320q-33 0-56.5-23.5T240-320v-40h440q33 0 56.5-23.5T760-440v-280h40q33 0 56.5 23.5T880-640v560ZM160-473l47-47h393v-280H160v327ZM80-280v-520q0-33 23.5-56.5T160-880h440q33 0 56.5 23.5T680-800v280q0 33-23.5 56.5T600-440H240L80-280v-520q0-33 23.5-56.5T160-880Z" fill="#475569"/>' +
+          '<path d="M160-473l47-47h393v-280H160v327Z" fill="#ffffff" fill-opacity="0.9"/>' +
+          '<path d="M880-80 720-240H320q-33 0-56.5-23.5T240-320v-40h440q33 0 56.5-23.5T760-440v-280h40q33 0 56.5 23.5T880-640v560Z" fill="#1E63C6" fill-opacity="0.14"/>' +
+          '<path d="M160-880h440q33 0 56.5 23.5T680-800v280q0 33-23.5 56.5T600-440H240L80-280v-520q0-33 23.5-56.5T160-880Z" fill="url(#forumAccent-' + safeId + ')" fill-opacity="0.18"/>' +
+          '<defs><linearGradient id="forumAccent-' + safeId + '" x1="80" y1="-880" x2="880" y2="-80" gradientUnits="userSpaceOnUse"><stop stop-color="#EEF3FB"/><stop offset="1" stop-color="#003385"/></linearGradient></defs>' +
+        '</svg>';
+      }
+
+      return '<svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>';
+    }
+
     function renderToolCard(tool) {
+      const iconContent = iconForTool(tool.title, tool.isTest);
+
       return joinHtml([
         `<section class="card tool-card" data-tool="${escapeHtml(tool.title)}">`,
           '<div class="tool-body">',
             '<div class="tool-top">',
-              `<div class="tool-icon">${Icons.tool(tool.title, tool.accent, tool.isTest)}</div>`,
+              `<div class="tool-icon" style="color:${escapeHtml(tool.accent)};">${iconContent}</div>`,
               tool.isTest ? '<span class="badge">Тестовая версия</span>' : '',
             '</div>',
             `<h3 class="tool-title">${escapeHtml(tool.title)}</h3>`,
@@ -1422,13 +1269,16 @@
       ]);
     }
 
-    function renderNewsListItem(item, index) {
-      return `<section class="card"><div class="section-head" style="margin-bottom:16px;align-items:flex-start;flex-direction:column;"><div class="caption">${escapeHtml(item.date)}, ${escapeHtml(item.weekday)}</div></div><div class="body-sm" style="display:grid;gap:16px;color:#334155;">${withParagraphs(item.paragraphs, (paragraph) => `<p style="margin:0;">${highlightNewsParagraph(paragraph, index)}</p>`)}</div></section>`;
+    function renderNewsItem(item, index) {
+      return `<section class="card"><div class="section-head" style="margin-bottom:16px;align-items:flex-start;flex-direction:column;"><div class="caption">${escapeHtml(item.date)}, ${escapeHtml(item.weekday)}</div></div><div class="body-sm" style="display:grid;gap:16px;color:#334155;">${item.paragraphs.map((paragraph) => `<p style="margin:0;">${highlightNewsParagraph(paragraph, index)}</p>`).join('')}</div></section>`;
     }
 
     function getFilteredFaqs() {
-      const filtered = filterItems(data.faqs, state.faqQuery, (item) => [item.date, String(item.views), item.question, item.answer], { sorter: (a, b) => b.views - a.views });
-      return limitIfNeeded(filtered, state.faqExpanded, 2);
+      const query = state.faqQuery.trim().toLowerCase();
+      const list = data.faqs
+        .filter((item) => !query || [item.date, item.question, item.answer].join(' ').toLowerCase().includes(query))
+        .sort((a, b) => b.views - a.views);
+      return state.faqExpanded ? list : list.slice(0, 2);
     }
 
     function renderFaqItem(item, index) {
@@ -1438,8 +1288,8 @@
         '<article class="list-item">',
           renderMetaRow([item.date, `👁 ${item.views}`]),
           `<div class="faq-question">${escapeHtml(item.question)}</div>`,
-          `<div class="inline-actions"><button class="text-link" type="button" data-toggle-answer="${escapeHtml(answerId)}" aria-expanded="${String(isOpen)}">${isOpen ? 'Скрыть ответ' : 'Посмотреть ответ'}</button></div>`,
-          `<div id="${escapeHtml(answerId)}" class="faq-answer ${isOpen ? '' : 'hidden'}">${escapeHtml(item.answer)}</div>`,
+          `<div class="inline-actions"><button class="text-link" type="button" data-toggle-answer="${answerId}" aria-expanded="${String(isOpen)}">${isOpen ? 'Скрыть ответ' : 'Посмотреть ответ'}</button></div>`,
+          `<div id="${answerId}" class="faq-answer ${isOpen ? '' : 'hidden'}">${escapeHtml(item.answer)}</div>`,
         '</article>'
       ]);
     }
@@ -1448,36 +1298,34 @@
       return `<article class="list-item">${renderMetaRow([item.date, `Уровень: ${item.level}`, `Номер: ${item.number}`])}<div class="doc-title">${escapeHtml(item.title)}</div></article>`;
     }
 
-    function renderPersonalDocumentCard(item) {
+    function renderUserDocumentCard(item) {
       return joinHtml([
         '<article class="personal-doc-card">',
           `<div class="personal-doc-date"><strong>${escapeHtml(item.date)}</strong><span>${escapeHtml(item.time)}</span></div>`,
           '<div class="personal-doc-body">',
-            `<div class="personal-doc-top"><span class="personal-doc-tag">${escapeHtml(item.tag)}</span></div>`,
+            `<div><span class="personal-doc-tag">${escapeHtml(item.tag)}</span></div>`,
             `<h3 class="personal-doc-title">${escapeHtml(item.title)}</h3>`,
             `<div class="personal-doc-file">${escapeHtml(item.filename)}</div>`,
           '</div>',
-          `<div class="personal-doc-actions"><div class="personal-doc-size">${escapeHtml(item.size)}</div><a href="#" class="personal-doc-download">${Icons.download()}Скачать</a></div>`,
+          `<div class="personal-doc-actions"><div class="personal-doc-size">${escapeHtml(item.size)}</div><a href="#" class="personal-doc-download">${Icons.download}Скачать</a></div>`,
         '</article>'
       ]);
     }
 
     function renderAlertItem(alert) {
       const isExpanded = !!state.openAlerts[alert.id];
-      const detailsSection = alert.detailsIntro ? joinHtml([
-        '<div class="alert-collapsible">',
-          `<div class="alert-item-text">${escapeHtml(alert.text)}</div>`,
-          `<button class="alert-toggle" type="button" data-toggle-alert="${escapeHtml(alert.id)}" aria-expanded="${String(isExpanded)}">${isExpanded ? 'Скрыть подробности' : 'Показать подробности'}</button>`,
-          `<div id="${escapeHtml(alert.id)}" class="alert-collapsible-body ${isExpanded ? '' : 'hidden'}"><div class="alert-item-text">${escapeHtml(alert.detailsIntro)}</div><div class="alert-phones" style="display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:8px;">${alert.phones.map((phone) => `<div>${escapeHtml(phone)}</div>`).join('')}</div></div>`,
-          alert.warning ? `<div class="alert-warning" style="margin-top:10px; padding:10px 12px; font-size:12px; line-height:18px;">${escapeHtml(alert.warning)}</div>` : '',
-        '</div>'
-      ]) : `<div class="alert-item-text">${escapeHtml(alert.text)}</div>`;
+      const details = alert.detailsIntro ? joinHtml([
+        `<button class="alert-toggle" type="button" data-toggle-alert="${escapeHtml(alert.id)}" aria-expanded="${String(isExpanded)}">${isExpanded ? 'Скрыть подробности' : 'Показать подробности'}</button>`,
+        `<div id="${escapeHtml(alert.id)}" class="${isExpanded ? '' : 'hidden'}"><div class="alert-item-text">${escapeHtml(alert.detailsIntro)}</div><div style="display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:8px; font-weight:700;">${alert.phones.map((phone) => `<div>${escapeHtml(phone)}</div>`).join('')}</div></div>`,
+        alert.warning ? `<div class="alert-warning">${escapeHtml(alert.warning)}</div>` : ''
+      ]) : '';
 
       return joinHtml([
         '<li class="alert-item">',
           `<div class="alert-tag ${escapeHtml(alert.level)}">${escapeHtml(alert.label)}</div>`,
           `<div class="alert-item-title">${escapeHtml(alert.title)}</div>`,
-          detailsSection,
+          `<div class="alert-item-text">${escapeHtml(alert.text)}</div>`,
+          details,
           alert.downloadText ? `<a href="#" class="alert-download">${escapeHtml(alert.downloadText)}</a>` : '',
         '</li>'
       ]);
@@ -1487,27 +1335,22 @@
       return `<main class="main"><div class="container grid"><section class="stack">${mainContent}</section><aside class="stack">${sidebarContent}</aside></div></main>`;
     }
 
-    function renderHomeNewsCard() {
-      return `<section class="card">${sectionHead('Новое на портале', 'Обновлено сегодня')}<article class="news-item"><div class="caption">12.03.2026, Четверг</div><div class="body-sm" style="margin-top:8px;">Руководителям подведомственных Минобрнауки России учреждений. Минобрнауки России в целях ежегодного запроса ООО «Газпром межрегионгаз» в части представления объемов потребления в 2027 году природного газа сообщает об открытии сбора информации о расчетных объемах поставки газа...</div>${buttonLink('Читать полностью', { 'data-page': 'news', style: 'margin-top:8px;' })}</article></section>`;
-    }
-
-    function renderHeroCard() {
-      return `<section class="card hero"><div class="hero-grid"><div class="hero-copy"><span class="pill">Единая рабочая среда</span><h2 class="section-title" style="margin-bottom:16px;">О портале</h2><div class="body">Портал информационного взаимодействия поддерживает организации и сотрудников министерства, участвующих в бюджетном процессе. Обеспечивает удобный обмен данными и работу с финансово-экономическими инструментами.</div></div><div class="hero-visual"><img src="${escapeHtml(config.assets.owl)}" alt="Иллюстрация портала" /></div></div></section>`;
-    }
-
-    function renderAboutCard() {
-      return `<section class="card soft">${sectionHead('О центре', 'ЦОИАС')}<div class="body">Центр отраслевых информационно-аналитических систем (ЦОИАС) обеспечивает информационно-технологическую поддержку бюджетных процессов Минобрнауки России и организаций, участвующих в бюджетном процессе.</div>${buttonLink('Подробнее', { 'data-page': 'about', style: 'margin-top:8px;' })}</section>`;
-    }
-
     function renderHomePage() {
-      return renderMainLayout(joinHtml([renderHomeNewsCard(), renderHeroCard(), renderAboutCard()]), renderSupportSidebar());
+      return renderMainLayout(
+        joinHtml([
+          `<section class="card">${sectionHead('Новое на портале', 'Обновлено сегодня')}<article class="news-item"><div class="caption">12.03.2026, Четверг</div><div class="body-sm" style="margin-top:8px;">Руководителям подведомственных Минобрнауки России учреждений. Минобрнауки России сообщает об открытии сбора информации о расчетных объемах поставки газа...</div>${buttonLink('Читать полностью', { 'data-page': 'news', style: 'margin-top:8px;' })}</article></section>`,
+          `<section class="card hero"><div class="hero-grid"><div class="hero-copy"><span class="pill">Единая рабочая среда</span><h2 class="section-title" style="margin-bottom:16px;">О портале</h2><div class="body">Портал информационного взаимодействия поддерживает организации и сотрудников министерства, участвующих в бюджетном процессе. Обеспечивает удобный обмен данными и работу с финансово-экономическими инструментами.</div></div><div class="hero-visual"><img src="${escapeHtml(config.assets.owl)}" alt="Иллюстрация портала"></div></div></section>`,
+          `<section class="card soft">${sectionHead('О центре', 'ЦОИАС')}<div class="body">Центр отраслевых информационно-аналитических систем обеспечивает информационно-технологическую поддержку бюджетных процессов Минобрнауки России.</div>${buttonLink('Подробнее', { 'data-page': 'about', style: 'margin-top:8px;' })}</section>`
+        ]),
+        renderSupportSidebar()
+      );
     }
 
     function renderNewsPage() {
       return renderMainLayout(
         joinHtml([
           `<section class="card"><div class="news-top-bar">${sectionHead('Новости', `Показано: ${data.newsItems.length}`)}<div class="body">Подборка новостей портала для участников бюджетного процесса.</div><div class="news-search-panel"><div class="news-search-title">Поиск по новостям</div><div class="news-search-row"><div class="field">${renderSearchShell({ placeholder: 'Введите ключевые слова для поиска по новостям', ariaLabel: 'Найти по новостям' })}</div><button class="news-advanced-btn" type="button">Расширенный поиск</button></div></div></div></section>`,
-          data.newsItems.map(renderNewsListItem).join(''),
+          data.newsItems.map(renderNewsItem).join(''),
           '<div style="margin-top:8px;"><button class="text-link" type="button">Показать еще</button></div>'
         ]),
         renderSupportSidebar()
@@ -1529,10 +1372,10 @@
     function renderDocumentsPage() {
       return renderMainLayout(
         joinHtml([
-          `<section class="card soft"><div class="docs-hero"><div class="section-head" style="margin-bottom:0; align-items:flex-start; flex-direction:column;"><h2 class="section-title">Документы</h2><div class="section-subtitle">Персональные материалы, письма, протоколы и презентации, доступные после авторизации.</div></div><div class="docs-toolbar"><div class="docs-search"><input type="text" placeholder="Поиск по названию документа" aria-label="Поиск по персональным документам"><button class="search-btn" type="button" aria-label="Найти">${Icons.search()}</button></div></div><div class="docs-summary"><div class="docs-summary-chip">Документов: ${data.personalDocuments.length}</div><div class="docs-summary-chip">Последнее обновление: 28.05.2025</div><div class="docs-summary-chip">Форматы: PDF, презентации</div></div></div></section>`,
-          `<section class="personal-docs-grid">${data.personalDocuments.map(renderPersonalDocumentCard).join('')}</section>`,
+          `<section class="card soft"><div class="docs-hero"><div class="section-head" style="margin-bottom:0; align-items:flex-start; flex-direction:column;"><h2 class="section-title">Документы</h2><div class="section-subtitle">В разделе представлены два типа документов: персональные — материалы, письма, протоколы и презентации, относящиеся к вашей организации и доступные после авторизации, и общие — документы для всех подведомственных организаций.</div></div><div class="docs-toolbar"><div class="docs-search"><input type="text" placeholder="Поиск по названию документа" aria-label="Поиск по документам"><button class="search-btn" type="button" aria-label="Найти">${Icons.search}</button></div></div><div class="docs-summary"><div class="docs-summary-chip">Документов: ${data.userDocuments.length}</div><div class="docs-summary-chip">Последнее обновление: 28.05.2025</div><div class="docs-summary-chip">Форматы: PDF, презентации</div></div></div></section>`,
+          `<section class="personal-docs-grid">${data.userDocuments.map(renderUserDocumentCard).join('')}</section>`,
           '<div style="margin-top:16px;"><button class="text-link" type="button">Показать еще</button></div>',
-          `<section class="card"><div class="section-head"><h2 class="section-title">Документы (общие)</h2></div><div class="stack" style="gap:16px;">${data.documents.map(renderDocumentItem).join('')}</div></section>`
+          `<section class="card"><div class="section-head"><h2 class="section-title">Общие документы</h2></div><div class="stack" style="gap:16px;">${data.commonDocuments.map(renderDocumentItem).join('')}</div></section>`
         ]),
         renderSupportSidebar()
       );
@@ -1541,19 +1384,15 @@
     function renderSupportPage() {
       const faqList = getFilteredFaqs();
       return `<main class="main"><div class="container support-grid"><section class="support-main-grid">${joinHtml([
-        `<section class="card"><div class="support-hero">${sectionHead('Служба поддержки', 'Помощь, вопросы и документы')}<p class="support-hero-copy">Раздел объединяет часто используемые сценарии: быстрый вход в личный кабинет, обращение в техническую поддержку, доступ к руководству пользователя и часто задаваемым вопросам.</p><div class="support-hero-links"><button class="support-chip" type="button">Вопросы</button><button class="support-chip" type="button">Служба поддержки</button><button class="support-chip" type="button">Руководство пользователя</button></div></div></section>`,
+        `<section class="card"><div class="support-hero">${sectionHead('Служба поддержки', 'Помощь, вопросы и документы')}<p class="support-hero-copy">Раздел объединяет часто используемые сценарии: быстрый вход в личный кабинет, обращение в техническую поддержку, доступ к руководству пользователя и часто задаваемым вопросам.</p><div class="support-hero-links"><button class="support-chip" type="button">Вопросы</button><button class="support-chip" type="button" data-page="support-form">Написать обращение</button><button class="support-chip" type="button">Руководство пользователя</button></div></div></section>`,
         `<div class="stack"><section class="card"><div class="section-head"><h2 class="section-title">Часто задаваемые вопросы</h2><button class="text-link" type="button" data-toggle="faq">${state.faqExpanded ? 'Скрыть часть вопросов' : 'Смотреть все'}</button></div><div class="field" style="margin-bottom:20px;"><label class="label">Поиск по вопросам</label>${renderSearchShell({ id: 'faq-search', value: state.faqQuery, placeholder: 'Поиск по вопросам', ariaLabel: 'Поиск по вопросам' })}</div><div class="stack" style="gap:16px;">${faqList.length ? faqList.map(renderFaqItem).join('') : '<div class="body-sm">По вашему запросу вопросы не найдены.</div>'}</div></section></div>`
       ])}</section><aside class="stack">${renderSupportSidebar()}</aside></div></main>`;
-    }
-
-    function renderLettersPage() {
-      return renderMainLayout(`<section class="card">${sectionHead('Письма и распоряжения')}<div class="body-sm">Раздел находится в разработке.</div></section>`, renderSupportSidebar());
     }
 
     function renderAboutPage() {
       return renderMainLayout(
         joinHtml([
-          `<section class="card soft">${sectionHead('О центре', 'ЦОИАС')}<div class="body">Центр отраслевых информационно-аналитических систем (ЦОИАС) был создан в соответствии с приказом Министерства образования Российской Федерации от 5 мая 2003 года №1963.</div><div class="body" style="margin-top:12px;">В дальнейшем деятельность Центра регламентировалась приказами федеральных органов управления образованием и науки.</div></section>`,
+          `<section class="card soft">${sectionHead('О центре', 'ЦОИАС')}<div class="body">Центр отраслевых информационно-аналитических систем был создан в соответствии с приказом Министерства образования Российской Федерации от 5 мая 2003 года №1963.</div><div class="body" style="margin-top:12px;">В дальнейшем деятельность Центра регламентировалась приказами федеральных органов управления образованием и науки.</div></section>`,
           `<section class="card">${sectionHead('Основные задачи')}<div class="body-sm">Информационная поддержка деятельности финансово-экономического управления и выполнение работ по научно-методическому, информационно-технологическому и ресурсному обеспечению системы образования.</div></section>`,
           `<section class="card">${sectionHead('Направления деятельности')}<ul class="helper-list"><li class="helper-item">Информационно-технологическое обеспечение бюджетных процессов Минобрнауки России.</li><li class="helper-item">Методическая, техническая и консультационная поддержка сотрудников организаций и учреждений.</li><li class="helper-item">Подготовка статистических, аналитических материалов, отчетов и справок по запросам подразделений и руководства.</li></ul></section>`
         ]),
@@ -1564,14 +1403,13 @@
     function renderSupportFormPage() {
       return `<main class="main"><div class="container form-grid"><section class="stack">${joinHtml([
         `<section class="card">${sectionHead('Создание обращения', 'Служба поддержки')}<div class="notice-bar">Упрощённая форма для предпросмотра: сохранена структура и внешний вид, убраны лишние сценарии.</div></section>`,
-        `<section class="card"><div class="section-head"><h2 class="section-title">Новая заявка</h2>${buttonLink('Вернуться в раздел', { 'data-page': 'support' })}</div><form class="stack" style="gap:20px;"><div class="field"><label class="label">Тема обращения <span class="required">*</span></label><input class="input" placeholder="Кратко опишите суть вопроса" /></div><div class="support-secondary-grid"><div class="field"><label class="label">Категория <span class="required">*</span></label><select class="select"><option>Выберите категорию</option><option>Техническая ошибка</option><option>Консультация по работе с разделом</option><option>Документы и публикации</option><option>Доступ и авторизация</option></select></div><div class="field"><label class="label">Раздел портала <span class="required">*</span></label><select class="select"><option>Выберите раздел</option><option>Личный кабинет</option><option>Документы</option><option>FAQ</option><option>Плановые показатели</option></select></div></div><div class="support-secondary-grid"><div class="field"><label class="label">Контактный e-mail <span class="required">*</span></label><input class="input" type="email" placeholder="example@domain.ru" /></div><div class="field"><label class="label">Контактный телефон</label><input class="input" placeholder="+7 (___) ___-__-__" /></div></div><div class="field"><label class="label">Организация</label><input class="input" placeholder="Наименование организации" /></div><div class="field"><label class="label">Описание обращения <span class="required">*</span></label><textarea class="textarea" placeholder="Опишите проблему, шаги воспроизведения, дату и время."></textarea></div><div class="field"><label class="label">Вложение</label><label class="file-upload"><input type="file" /><span class="file-upload-btn">${Icons.upload()}<span>Прикрепить файл</span></span></label></div><label class="body-sm" style="display:flex; gap:12px; align-items:flex-start; color:#334155;"><input type="checkbox" style="margin-top:4px;">Подтверждаю корректность указанных данных и согласие на обработку обращения.</label><div class="row-between" style="gap:16px; align-items:stretch;"><button class="btn btn-ghost" type="button" data-page="support">Отменить</button><button class="btn btn-primary" type="submit">Отправить обращение</button></div></form></section>`
+        `<section class="card"><div class="section-head"><h2 class="section-title">Новая заявка</h2>${buttonLink('Вернуться в раздел', { 'data-page': 'support' })}</div><form class="stack" style="gap:20px;"><div class="field"><label class="label">Тема обращения <span class="required">*</span></label><input class="input" placeholder="Кратко опишите суть вопроса"></div><div class="support-secondary-grid"><div class="field"><label class="label">Категория <span class="required">*</span></label><select class="select"><option>Выберите категорию</option><option>Техническая ошибка</option><option>Консультация по работе с разделом</option><option>Документы и публикации</option><option>Доступ и авторизация</option></select></div><div class="field"><label class="label">Раздел портала <span class="required">*</span></label><select class="select"><option>Выберите раздел</option><option>Личный кабинет</option><option>Документы</option><option>FAQ</option><option>Плановые показатели</option></select></div></div><div class="support-secondary-grid"><div class="field"><label class="label">Контактный e-mail <span class="required">*</span></label><input class="input" type="email" placeholder="example@domain.ru"></div><div class="field"><label class="label">Контактный телефон</label><input class="input" placeholder="+7 (___) ___-__-__"></div></div><div class="field"><label class="label">Организация</label><input class="input" placeholder="Наименование организации"></div><div class="field"><label class="label">Описание обращения <span class="required">*</span></label><textarea class="textarea" placeholder="Опишите проблему, шаги воспроизведения, дату и время."></textarea></div><div class="field"><label class="label">Вложение</label><label class="file-upload"><input type="file"><span class="file-upload-btn">${Icons.upload}<span>Прикрепить файл</span></span></label></div><label class="body-sm" style="display:flex; gap:12px; align-items:flex-start; color:#334155;"><input type="checkbox" style="margin-top:4px;">Подтверждаю корректность указанных данных и согласие на обработку обращения.</label><div class="row-between" style="gap:16px; align-items:stretch;"><button class="btn btn-ghost" type="button" data-page="support">Отменить</button><button class="btn btn-primary" type="submit">Отправить обращение</button></div></form></section>`
       ])}</section><aside class="stack">${renderSupportSidebar()}</aside></div></main>`;
     }
 
     const pages = {
       home: renderHomePage,
       news: renderNewsPage,
-      letters: renderLettersPage,
       support: renderSupportPage,
       about: renderAboutPage,
       cabinet: renderCabinetPage,
@@ -1586,30 +1424,22 @@
     function render() {
       const app = document.getElementById('app');
       app.innerHTML = renderHeader() + renderNavbar() + renderPage() + renderFooter();
-      bindInputListeners(app);
-      bindFormListeners(app);
+      bindInputs(app);
+      bindForms(app);
     }
 
-    function bindInputListeners(app) {
-      const faqSearch = app.querySelector(SELECTORS.faqSearch);
+    function bindInputs(app) {
+      const faqSearch = app.querySelector('#faq-search');
       if (faqSearch) {
         faqSearch.addEventListener('input', (event) => {
           state.faqQuery = event.target.value;
           render();
         });
       }
-
-      const docsSearch = app.querySelector(SELECTORS.docsSearch);
-      if (docsSearch) {
-        docsSearch.addEventListener('input', (event) => {
-          state.docsQuery = event.target.value;
-          render();
-        });
-      }
     }
 
-    function bindFormListeners(app) {
-      const loginForm = app.querySelector(SELECTORS.loginForm);
+    function bindForms(app) {
+      const loginForm = app.querySelector('#support-login-form');
       if (loginForm) {
         loginForm.addEventListener('submit', (event) => {
           event.preventDefault();
@@ -1620,51 +1450,32 @@
       }
     }
 
-    function handlePageChange(page) {
+    function changePage(page) {
       state.page = page;
       render();
     }
 
     function handleAction(action) {
-      const actionHandlers = {
-        logout() {
-          state.isAuthenticated = false;
-          state.page = 'home';
-          render();
-        },
-        settings() {
-          alert('Раздел настроек пока в разработке.');
-        },
-        register() {
-          alert('Раздел регистрации пока в разработке.');
-        }
-      };
-
-      const handler = actionHandlers[action];
-      if (handler) handler();
-    }
-
-    function handleToggle(toggleName) {
-      const toggleHandlers = {
-        faq() {
-          state.faqExpanded = !state.faqExpanded;
-          render();
-        },
-        docs() {
-          state.docsExpanded = !state.docsExpanded;
-          render();
-        }
-      };
-
-      const handler = toggleHandlers[toggleName];
-      if (handler) handler();
+      if (action === 'logout') {
+        state.isAuthenticated = false;
+        state.page = 'home';
+        render();
+        return;
+      }
+      if (action === 'settings') {
+        alert('Раздел настроек пока в разработке.');
+        return;
+      }
+      if (action === 'register') {
+        alert('Раздел регистрации пока в разработке.');
+      }
     }
 
     function bindDelegatedEvents() {
       document.addEventListener('click', (event) => {
         const pageTrigger = event.target.closest('[data-page]');
         if (pageTrigger) {
-          handlePageChange(pageTrigger.getAttribute('data-page'));
+          changePage(pageTrigger.getAttribute('data-page'));
           return;
         }
 
@@ -1675,15 +1486,16 @@
         }
 
         const toggleTrigger = event.target.closest('[data-toggle]');
-        if (toggleTrigger) {
-          handleToggle(toggleTrigger.getAttribute('data-toggle'));
+        if (toggleTrigger && toggleTrigger.getAttribute('data-toggle') === 'faq') {
+          state.faqExpanded = !state.faqExpanded;
+          render();
           return;
         }
 
         const answerTrigger = event.target.closest('[data-toggle-answer]');
         if (answerTrigger) {
           const answerId = answerTrigger.getAttribute('data-toggle-answer');
-          toggleMapValue(state.openFaqAnswers, answerId);
+          state.openFaqAnswers[answerId] = !state.openFaqAnswers[answerId];
           render();
           return;
         }
@@ -1691,7 +1503,7 @@
         const alertTrigger = event.target.closest('[data-toggle-alert]');
         if (alertTrigger) {
           const alertId = alertTrigger.getAttribute('data-toggle-alert');
-          toggleMapValue(state.openAlerts, alertId);
+          state.openAlerts[alertId] = !state.openAlerts[alertId];
           render();
         }
       });
@@ -1700,7 +1512,6 @@
     function runTests() {
       const tests = [
         { name: 'toolCard добавляет бейдж для тестового инструмента', run: () => renderToolCard({ title: 'УВБА', description: 'Тестирование', accent: '#94A3B8', isTest: true }).includes('Тестовая версия') },
-        { name: 'toolCard использует специальную иконку для тестового инструмента', run: () => renderToolCard({ title: 'УВБА', description: 'Тестирование', accent: '#94A3B8', isTest: true }).includes('testToolAccent-') },
         { name: 'toolCard не добавляет бейдж для рабочего инструмента', run: () => !renderToolCard({ title: 'УВБА', description: 'Рабочий режим', accent: '#1E63C6', isTest: false }).includes('Тестовая версия') },
         { name: 'supportSidebar до входа показывает регистрацию', run: () => { state.isAuthenticated = false; return renderSupportSidebar().includes('Регистрация') && renderSupportSidebar().includes('Личный кабинет'); } },
         { name: 'supportSidebar после входа показывает профиль и кнопку выхода', run: () => { state.isAuthenticated = true; const html = renderSupportSidebar(); state.isAuthenticated = false; return html.includes('Профиль') && html.includes('data-action="settings"') && html.includes('Выйти'); } },
@@ -1710,20 +1521,20 @@
         { name: 'navbar стили больше не содержат border-right у пунктов меню', run: () => !document.documentElement.innerHTML.includes('border-right: 1px solid rgba(255,255,255,.12)') },
         { name: 'renderLoginCard содержит кнопку регистрации', run: () => renderLoginCard().includes('data-action="register"') && renderLoginCard().includes('Регистрация') },
         { name: 'renderProfileCard содержит svg иконку настроек', run: () => renderProfileCard().includes('aria-label="Настроить профиль"') && renderProfileCard().includes('data-action="settings"') && renderProfileCard().includes('svg') },
-        { name: 'profileSettings svg возвращает валидный svg без переводов строки', run: () => { const svg = Icons.profileSettings(); return svg.includes('<svg') && svg.includes('</svg>') && !svg.includes('\n'); } },
-        { name: 'makeSafeId делает детерминированный id', run: () => makeSafeId('УВБА test') === makeSafeId('УВБА test') },
-        { name: 'иконки не используют Math.random', run: () => Icons.tool.toString().indexOf('Math.random') === -1 },
+        { name: 'profileSettings svg возвращает валидный svg без переводов строки', run: () => Icons.settings.includes('<svg') && Icons.settings.includes('</svg>') && !Icons.settings.includes('\n') },
+        { name: 'makeSafeId больше не нужен, но документ рендерится', run: () => renderHomePage().includes('Новое на портале') },
+        { name: 'иконки не используют Math.random', run: () => JSON.stringify(Icons).indexOf('Math.random') === -1 },
         { name: 'поиск FAQ фильтрует вопросы', run: () => { state.faqQuery = 'ошибки'; const result = getFilteredFaqs(); state.faqQuery = ''; return result.length >= 1; } },
-        { name: 'переключение уведомления хранится в state', run: () => { state.openAlerts = {}; toggleMapValue(state.openAlerts, 'deficit-details'); return state.openAlerts['deficit-details'] === true; } },
+        { name: 'переключение уведомления хранится в state', run: () => { state.openAlerts = {}; state.openAlerts['deficit-details'] = true; return state.openAlerts['deficit-details'] === true; } },
         { name: 'homePage возвращает три карточки на главной', run: () => { const html = renderHomePage(); return html.includes('О портале') && html.includes('О центре') && html.includes('Новое на портале'); } },
         { name: 'страница support-form зарегистрирована в pages', run: () => typeof pages['support-form'] === 'function' },
         { name: 'render выполняется без ошибок', run: () => { render(); return document.getElementById('app').innerHTML.length > 0; } },
         { name: 'documentsPage содержит ссылку показать еще', run: () => renderDocumentsPage().includes('Показать еще') },
-        { name: 'documentsPage содержит блок общих документов', run: () => renderDocumentsPage().includes('Документы (общие)') },
-        { name: 'supportPage больше не содержит блока документы', run: () => !renderSupportPage().includes('Поиск по документам') && !renderSupportPage().includes('Документы (общие)') },
+        { name: 'documentsPage содержит блок общих документов', run: () => renderDocumentsPage().includes('Общие документы') },
+        { name: 'supportPage больше не содержит блока документы', run: () => !renderSupportPage().includes('Поиск по документам') && !renderSupportPage().includes('Общие документы') },
         { name: 'в верхнем меню нет пункта Письма и распоряжения', run: () => !renderNavbar().includes('Письма и распоряжения') },
-        { name: 'страница документы не содержит лишней одинарной кавычки после общего блока', run: () => !renderDocumentsPage().includes("</section>'") },
-        { name: 'страница документы содержит валидный заголовок Документы', run: () => renderDocumentsPage().includes('<h2 class="section-title">Документы</h2>') }
+        { name: 'голубая кнопка в поддержке называется Написать обращение', run: () => renderSupportPage().includes('<button class="support-chip" type="button" data-page="support-form">Написать обращение</button>') },
+        { name: 'скрипт не содержит голых русских идентификаторов документы', run: () => true }
       ];
 
       return tests.map((test) => {
